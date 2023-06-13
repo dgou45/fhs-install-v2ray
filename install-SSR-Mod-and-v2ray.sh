@@ -36,7 +36,7 @@ lsmod | grep bbr
 { echo "@reboot sh /root/shadowsocks-mod/run.sh"; echo "@reboot /bin/systemctl restart v2ray.service";echo "0 22 * * 0 /sbin/reboot";echo "0 22 * * * /bin/systemctl restart v2ray.service";echo "0 22 * * * sh /root/shadowsocks-mod/stop.sh && sh /root/shadowsocks-mod/run.sh"; } | EDITOR="tee" crontab -
 
 #下载v2ray配置文件
-wget https://github.com/dgou45/fhs-install-v2ray/raw/master/.github/workflows/config-v2ray.json
+wget https://github.com/dgou45/fhs-install-v2ray/raw/ssr/config-v2ray.json
 
 
 echo "所有命令执行成功"
