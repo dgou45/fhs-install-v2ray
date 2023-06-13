@@ -44,7 +44,10 @@ sudo sed -i "s|MU_SUFFIX = 'zhaoj.in'|MU_SUFFIX = 'microsoft.com,www.icloud.com,
 #删除脚本自身
 rm -rf /root/install-SSR-Mod-and-v2ray.sh
 
-
 echo "所有命令执行成功"
+
+#删除脚本自身
+echo "脚本正在删除自身..."
+rm -- "$0"
 
 
