@@ -1,0 +1,95 @@
+{  
+  "api":{  
+    "services":[  
+      "HandlerService",
+      "StatsService"
+    ],
+    "tag":"api"
+  },
+  "stats":{  
+
+  },
+  "inbound":{  
+    "port":443,
+    "protocol":"vmess",
+    "settings":{  
+      "clients":[  
+        {
+
+          "id": "123456789",
+          "alterId": 0,
+          "security": "auto",
+          "level": 1
+        }
+      ]
+    },
+    "streamSettings":{  
+      "network":"ws",
+      "security":"none",
+      "tlsSettings":{
+      	"certificates":[{
+			"certificateFile":"v2ray.crt",
+			"keyFile":"v2ray.key"
+		}]
+      }
+    },
+    "tag":"proxy",
+    "sniffing":{  
+      "enabled":false
+    }
+  },
+  "inboundDetour":[  
+    {  
+      "listen":"127.0.0.1",
+      "port":8888,
+      "protocol":"dokodemo-door",
+      "settings":{  
+        "address":"127.0.0.1"
+      },
+      "tag":"api"
+    }
+  ],
+  "log":{  
+    "loglevel":"warning"
+  },
+  "outbounds":[
+    {  
+      "sendThrough":"0.0.0.0",
+      "protocol":"freedom",
+      "settings":{}
+    },
+    {  
+      "protocol":"blackhole",
+      "settings":{},
+      "tag":"blocked"
+    }
+  ],
+  "routing":{  
+    "settings":{  
+      "rules":[  
+        {  
+          "inboundTag":[  
+            "api"
+          ],
+          "outboundTag":"api",
+          "type":"field"
+        }
+      ]
+    },
+    "strategy":"rules"
+  },
+  "dns":null,
+  "policy":{  
+    "levels":{  
+      "1":{  
+        "handshake":4,
+        "connIdle":300,
+        "uplinkOnly":5,
+        "downlinkOnly":30,
+        "statsUserUplink":true,
+        "statsUserDownlink":true,
+        "bufferSize":128
+      }
+    }
+  }
+}
