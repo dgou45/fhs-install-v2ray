@@ -34,7 +34,7 @@ lsmod | grep bbr
 sudo sed -i "s|MU_SUFFIX = 'zhaoj.in'|MU_SUFFIX = 'microsoft.com,www.icloud.com,www.apple.com,www.office.com,www.jd.hk,www.bing.com,cloudfront.com,cloudflare.com,ajax.microsoft.com'|" /root/shadowsocks-mod/userapiconfig.py
 
 #删除脚本自身
-rm -rf /root/install-SSR-Mod-and-v2ray.sh
+rm -rf /root/install-SSR-Mod.sh
 
 echo "所有命令执行成功"
 
