@@ -13,7 +13,7 @@ cp apiconfig.py userapiconfig.py
 cp config.json user-config.json
 
 #安装加密
-cd /root
+cd
 apt-get install build-essential
 wget https://github.com/jedisct1/libsodium/releases/download/1.0.18-RELEASE/libsodium-1.0.18.tar.gz
 tar xf libsodium-1.0.18.tar.gz && cd libsodium-1.0.18
