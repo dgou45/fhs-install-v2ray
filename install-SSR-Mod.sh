@@ -33,9 +33,8 @@ lsmod | grep bbr
 #修改混淆参数
 sudo sed -i "s|MU_SUFFIX = 'zhaoj.in'|MU_SUFFIX = 'microsoft.com,www.icloud.com,www.apple.com,www.office.com,www.jd.hk,www.bing.com,cloudfront.com,cloudflare.com,ajax.microsoft.com'|" /root/shadowsocks-mod/userapiconfig.py
 
-#删除脚本自身
-rm -rf /root/install-SSR-Mod.sh
-
 echo "所有命令执行成功"
 
-
+#删除脚本自身
+echo "脚本正在删除自身..."
+rm -- "$0"
