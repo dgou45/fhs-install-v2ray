@@ -38,9 +38,6 @@ lsmod | grep bbr
 #下载v2ray配置文件
 wget -O /usr/local/etc/v2ray/config.json https://github.com/dgou45/fhs-install-v2ray/raw/ssr/config-v2ray.json
 
-#修改混淆参数
-sudo sed -i "s|MU_SUFFIX = 'zhaoj.in'|MU_SUFFIX = 'microsoft.com,www.icloud.com,www.apple.com,www.office.com,www.jd.hk,www.bing.com,cloudfront.com,cloudflare.com,ajax.microsoft.com'|" /root/shadowsocks-mod/userapiconfig.py
-
 echo "所有命令执行成功"
 
 #删除脚本自身
