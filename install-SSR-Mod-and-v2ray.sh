@@ -20,8 +20,8 @@ tar xf libsodium-1.0.18.tar.gz && cd libsodium-1.0.18
 ./configure && make -j2 && make install
 ldconfig
 
-echo "是否安装v2ray？(Y/n)"
-read answer
+#是否安装v2ray
+answer = "$1"
 
 if [ "$answer" == "Y" ] || [ "$answer" == "y" ]; then
   #安装v2ray
