@@ -20,6 +20,11 @@ tar xf libsodium-1.0.18.tar.gz && cd libsodium-1.0.18
 ./configure && make -j2 && make install
 ldconfig
 
+#安装v2ray
+cd
+bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
+bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-dat-release.sh)
+
 #开启bbr
 echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
 echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
@@ -30,8 +35,12 @@ lsmod | grep bbr
 #添加定时任务
 { echo "@reboot sh /root/shadowsocks-mod/run.sh"; echo "@reboot /bin/systemctl restart v2ray.service";echo "0 22 * * 0 /sbin/reboot";echo "0 22 * * * /bin/systemctl restart v2ray.service";echo "0 22 * * * sh /root/shadowsocks-mod/stop.sh && sh /root/shadowsocks-mod/run.sh"; } | EDITOR="tee" crontab -
 
+#下载v2ray配置文件
+wget -O /usr/local/etc/v2ray/config.json https://github.com/dgou45/fhs-install-v2ray/raw/ssr/config-v2ray.json
+
 echo "所有命令执行成功"
 
 #删除脚本自身
 echo "脚本正在删除自身..."
 rm -- "$0"
+
