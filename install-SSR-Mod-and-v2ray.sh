@@ -5,7 +5,7 @@ set -e
 valid_input=false
 wait=10
 while [ "$valid_input" = false ]; do
-  echo "请输入节点ID（默认为 0 ）："
+  echo "请您输入节点ID（默认为 0 ）："
   if read -t $wait node_id; then
     echo "您输入的节点ID是：$node_id"
   else
