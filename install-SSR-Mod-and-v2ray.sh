@@ -1,6 +1,27 @@
 #!/bin/bash
 set -e
 
+# 获取节点ID，超时时间为 10 秒
+valid_input=false
+wait=10
+while [ "$valid_input" = false ]; do
+  echo "请输入节点ID，如果超过 10 秒未输入，则节点ID默认为 0 ："
+  if read -t $wait node_id; then
+    echo "您输入的节点ID是：$node_id"
+  else
+    echo "超时未输入，节点ID默认为 0"
+    node_id=0
+  fi
+  
+  # 判断用户输入是否为数字
+  if [[ "$node_id" =~ ^[0-9]+$ ]]; then
+    valid_input=true
+  else
+    wait=10
+    echo "输入无效，请重新输入一个有效的数字！"
+  fi
+done
+
 #安装工具
 apt update
 apt install -y python3-pip libffi-dev libssl-dev git
@@ -41,6 +62,9 @@ lsmod | grep bbr
 
 #添加定时任务
 { echo "@reboot sh /root/shadowsocks-mod/run.sh"; echo "@reboot /bin/systemctl restart v2ray.service";echo "0 22 * * 0 /sbin/reboot";echo "0 22 * * * /bin/systemctl restart v2ray.service";echo "0 22 * * * sh /root/shadowsocks-mod/stop.sh && sh /root/shadowsocks-mod/run.sh"; } | EDITOR="tee" crontab -
+
+#修改ssr节点ID
+sudo sed -i "s|NODE_ID = 0|NODE_ID = $node_id|" /root/shadowsocks-mod/userapiconfig.py
 
 echo "所有命令执行成功"
 
