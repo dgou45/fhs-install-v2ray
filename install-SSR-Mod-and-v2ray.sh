@@ -9,8 +9,10 @@ while [ "$valid_input" = false ]; do
   if read -t $wait node_id; then
     if [ -z "$node_id" ]; then
       node_id=0
+      echo "没有输入，节点ID默认为 0"
+    else
+      echo "您输入的节点ID是：$node_id"
     fi
-    echo "您输入的节点ID是：$node_id"
   else
     echo "超时未输入，节点ID默认为 0"
     node_id=0
