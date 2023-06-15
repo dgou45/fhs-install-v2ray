@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
 
-# 获取节点ID，超时时间为 10 秒
+# 获取节点ID，超时时间为 15 秒
 valid_input=false
-wait=10
+wait=15
 while [ "$valid_input" = false ]; do
   echo "请您输入节点ID（默认为 0 ）："
   if read -t $wait node_id; then
@@ -17,7 +17,7 @@ while [ "$valid_input" = false ]; do
   if [[ "$node_id" =~ ^[0-9]+$ ]]; then
     valid_input=true
   else
-    wait=10
+    wait=15
     echo "输入无效，请重新输入一个有效的数字！"
   fi
 done
