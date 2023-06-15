@@ -16,7 +16,7 @@ while [ "$valid_input" = false ]; do
   # 判断用户输入是否为数字
   if [[ "$node_id" =~ ^[0-9]+$ ]]; then
     valid_input=true
-  else if [ "$node_id" = '' ]; then
+  elif [ -z "$node_id" ]; then
     valid_input=true
     node_id=0
   else 
