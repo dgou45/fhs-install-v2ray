@@ -16,7 +16,10 @@ while [ "$valid_input" = false ]; do
   # 判断用户输入是否为数字
   if [[ "$node_id" =~ ^[0-9]+$ ]]; then
     valid_input=true
-  else
+  else if [ "$node_id" = '' ]; then
+    valid_input=true
+    node_id=0
+  else 
     wait=10
     echo "输入无效，请重新输入一个有效的数字！"
   fi
