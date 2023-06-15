@@ -7,6 +7,9 @@ wait=10
 while [ "$valid_input" = false ]; do
   echo "请输入节点ID（默认为 0 ）："
   if read -t $wait node_id; then
+    if [ -z "$node_id" ]; then
+      node_id=0
+    fi
     echo "您输入的节点ID是：$node_id"
   else
     echo "超时未输入，节点ID默认为 0"
@@ -16,9 +19,6 @@ while [ "$valid_input" = false ]; do
   # 判断用户输入是否为数字
   if [[ "$node_id" =~ ^[0-9]+$ ]]; then
     valid_input=true
-  elif [ -z "$node_id" ]; then
-    valid_input=true
-    node_id=0
   else 
     wait=10
     echo "输入无效，请重新输入一个有效的数字！"
