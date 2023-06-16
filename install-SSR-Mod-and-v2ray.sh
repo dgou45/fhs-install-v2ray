@@ -48,14 +48,15 @@ cd shadowsocks-mod/
 pip3 install -r requirements.txt
 cp apiconfig.py userapiconfig.py
 cp config.json user-config.json
+cd
 
 #安装加密
-cd
 apt-get install build-essential
 wget https://github.com/jedisct1/libsodium/releases/download/1.0.18-RELEASE/libsodium-1.0.18.tar.gz
 tar xf libsodium-1.0.18.tar.gz && cd libsodium-1.0.18
 ./configure && make -j2 && make install
 ldconfig
+cd
 
 #是否安装v2ray
 if [ "$install_v2" != "N" ] && [ "$install_v2" != "n" ]; then
