@@ -27,6 +27,17 @@ while [ "$valid_input" = false ]; do
   fi
 done
 
+echo "是否安装v2ray？输入N或n不安装，否则为安装："
+if read -t 10 install_v2; then
+  if [ "$install_v2" = "N" ] || [ "$install_v2" = "n" ]; then
+    echo "您选择的是不安装v2ray"
+  else
+    echo "您选择的是安装v2ray"
+  fi
+else
+  echo "超时未输入，默认安装v2ray"
+fi
+
 #安装工具
 apt update
 apt install -y python3-pip libffi-dev libssl-dev git
@@ -47,9 +58,7 @@ tar xf libsodium-1.0.18.tar.gz && cd libsodium-1.0.18
 ldconfig
 
 #是否安装v2ray
-answer="$1"
-
-if [ "$answer" == "Y" ] || [ "$answer" == "y" ]; then
+if [ "$install_v2" != "N" ] && [ "$install_v2" != "n" ]; then
   #安装v2ray
   cd
   bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
