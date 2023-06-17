@@ -1,6 +1,26 @@
 #!/bin/bash
 set -e
 
+# 与用户交互输入新密码
+read -s -p "请输入新的 root 密码：" new_password
+echo
+
+# 检查用户是否取消输入
+if [[ -z "$new_password" ]]; then
+    echo "用户取消输入密码。"
+    exit 0
+fi
+
+# 使用输入的密码修改 root 密码
+echo -e "$new_password\n$new_password" | sudo passwd root
+
+# 检查修改密码的结果
+if [[ $? -eq 0 ]]; then
+    echo "root 密码已成功修改。"
+else
+    echo "修改 root 密码失败。"
+fi
+
 # 获取节点ID，超时时间为 10 秒
 valid_input=false
 wait=10
