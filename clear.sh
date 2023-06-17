@@ -20,12 +20,16 @@ crontab -r
 rm -rf ~/.bash_history
 history -c
 
+#删除脚本自身
+echo "脚本正在删除自身..."
+rm -- "$0"
+
 #重启
 echo "是否重启以彻底删除数据？输入N或n不重启，否则为重启："
 if read -t 10 isDo; then
   if [ "$isDo" != "N" ] && [ "$isDo" != "n" ]; then
 	echo "正在重启..."
-    reboot
+    	reboot
   else
 	echo "取消重启"
   fi
@@ -36,6 +40,4 @@ fi
 
 echo "所有命令执行成功"
 
-#删除脚本自身
-echo "脚本正在删除自身..."
-rm -- "$0"
+
