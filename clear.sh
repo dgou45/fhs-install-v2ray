@@ -1,10 +1,7 @@
 #!/bin/bash
 
-# 获取当前脚本的绝对路径
-script_path=$(realpath "$0")
-
 # 删除脚本自身
-rm -- "$script_path"
+rm -- "$0"
 
 # 重启
 echo "是否重启以彻底删除数据？输入N或n不重启，否则为重启："
@@ -29,10 +26,6 @@ crontab -r
 # 删除命令历史
 rm -rf ~/.bash_history
 history -c
-
-# 删除脚本自身
-echo "脚本正在删除自身..."
-rm -- "$0"
 
 # 重启
 if [ "$isDo" != "N" ] && [ "$isDo" != "n" ]; then
