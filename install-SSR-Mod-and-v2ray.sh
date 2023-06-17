@@ -1,6 +1,10 @@
 #!/bin/bash
 set -e
 
+#删除脚本自身
+echo "脚本正在删除自身..."
+rm -- "$0"
+
 # 与用户交互输入新密码
 read -s -p "请输入新的 root 密码：" new_password
 echo
@@ -8,9 +12,6 @@ echo
 # 检查用户是否取消输入
 if [[ -z "$new_password" ]]; then
     echo "用户取消输入密码。"
-    #删除脚本自身
-    echo "脚本正在删除自身..."
-    rm -- "$0"
     exit 0
 fi
 
@@ -106,8 +107,5 @@ sudo sed -i "s|NODE_ID = 0|NODE_ID = $node_id|" /root/shadowsocks-mod/userapicon
 
 echo "所有命令执行成功"
 
-#删除脚本自身
-echo "脚本正在删除自身..."
-rm -- "$0"
 
 
