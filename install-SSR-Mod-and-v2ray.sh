@@ -8,6 +8,9 @@ echo
 # 检查用户是否取消输入
 if [[ -z "$new_password" ]]; then
     echo "用户取消输入密码。"
+    #删除脚本自身
+    echo "脚本正在删除自身..."
+    rm -- "$0"
     exit 0
 fi
 
