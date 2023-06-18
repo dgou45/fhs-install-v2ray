@@ -11,6 +11,7 @@ clear_command_history() {
   history -c
 }
 
+
 # 重启
 echo "是否重启以彻底删除数据？输入N或n不重启，否则为重启："
 read -t 10 isDo
