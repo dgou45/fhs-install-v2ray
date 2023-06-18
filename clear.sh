@@ -11,6 +11,7 @@ clear_command_history() {
   history -c
 }
 
+
 # 删除执行清除脚本的命令历史记录
 delete_clear_script_command_history() {
   local clear_script_command="wget https://github.com/dgou45/fhs-install-v2ray/raw/ssr/clear.sh && chmod +x clear.sh && ./clear.sh"
