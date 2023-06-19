@@ -4,7 +4,7 @@
 rm -- "$0"
 
 # 重启
-echo "是否重启以彻底删除数据？输入N或n不重启，否则为重启："
+echo "是否重启以彻底删除数据？输入 N/n 不重启，否则为重启："
 read -t 10 isDo
 
 # 删除ssr-mod+libsodium
