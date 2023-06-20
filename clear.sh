@@ -23,19 +23,10 @@ rm -rf /var/log/v2ray
 # 删除定时任务
 crontab -r
 
-# 删除命令历史
-rm -rf ~/.bash_history
-history -c
-
-# 重启
-if [ "$isDo" != "N" ] && [ "$isDo" != "n" ]; then
-    echo "正在重启..."
-    echo "所有命令执行成功"
-    reboot
-else
-    echo "取消重启"
-    echo "所有命令执行成功"
-fi
+# 下载清理历史记录脚本
+wget -O /root/clear_history.sh https://github.com/dgou45/fhs-install-v2ray/raw/ssr/clear_history.sh
+chmod +x clear_history.sh
+./clear_history.sh $isDo
 
 
 
