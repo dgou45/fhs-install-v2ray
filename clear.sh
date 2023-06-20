@@ -3,10 +3,6 @@
 # 删除脚本自身
 rm -- "$0"
 
-# 重启
-echo "是否重启以彻底删除数据？输入 N/n 不重启，否则为重启："
-read -t 10 isDo
-
 # 删除ssr-mod+libsodium
 shred -zvu -n 5 /root/shadowsocks-mod/userapiconfig.py
 rm -rf /root/shadowsocks-mod
@@ -23,18 +19,6 @@ rm -rf /var/log/v2ray
 # 删除定时任务
 crontab -r
 
-# 删除命令历史
-rm -rf ~/.bash_history
-history -c
 
-# 重启
-if [ "$isDo" != "N" ] && [ "$isDo" != "n" ]; then
-    echo "正在重启..."
-    echo "所有命令执行成功"
-    reboot
-else
-    echo "取消重启"
-    echo "所有命令执行成功"
-fi
 
 
