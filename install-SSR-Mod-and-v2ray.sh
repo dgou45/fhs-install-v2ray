@@ -99,7 +99,7 @@ if [ "$install_v2" != "N" ] && [ "$install_v2" != "n" ]; then
     wget -O /usr/local/etc/v2ray/config.json https://github.com/dgou45/fhs-install-v2ray/raw/ssr/config-v2ray.json
 fi
 
-# 开启bbr
+# 开启 BBR
 echo "正在开启 BBR"
 echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
 echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
