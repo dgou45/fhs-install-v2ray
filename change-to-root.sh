@@ -42,6 +42,9 @@ else
     echo "修改 root 密码失败。"
 fi
 
+# 删除authorized_keys
+sudo sh -c 'cat /dev/null > /root/.ssh/authorized_keys'
+
 # 检查当前用户是否是 root
 if [[ $EUID -ne 0 ]]; then
     echo "当前用户不是root。"
