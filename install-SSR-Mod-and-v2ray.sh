@@ -100,11 +100,16 @@ if [ "$install_v2" != "N" ] && [ "$install_v2" != "n" ]; then
 fi
 
 # 开启bbr
-echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
-echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
-sysctl -p
-sysctl net.ipv4.tcp_available_congestion_control
-lsmod | grep bbr
+if sysctl net.ipv4.tcp_available_congestion_control | grep -q 'bbr'; then
+  echo "BBR 已启用"
+else
+  echo "正在开启 BBR"
+  echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
+  echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
+  sysctl -p
+  sysctl net.ipv4.tcp_available_congestion_control
+  lsmod | grep bbr
+fi
 
 # 添加定时任务
 { echo "@reboot sh /root/shadowsocks-mod/run.sh"; echo "@reboot /bin/systemctl restart v2ray.service";echo "0 22 * * 0 /sbin/reboot";echo "0 22 * * * /bin/systemctl restart v2ray.service";echo "0 22 * * * sh /root/shadowsocks-mod/stop.sh && sh /root/shadowsocks-mod/run.sh"; } | EDITOR="tee" crontab -
