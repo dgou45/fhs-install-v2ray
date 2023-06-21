@@ -31,8 +31,8 @@ set -e
 # 获取节点ID
 valid_input=false
 while [ "$valid_input" = false ]; do
-  echo "请输入节点ID（默认为 0 ）："
-  read node_id
+    echo "请输入节点ID（默认为 0 ）："
+    read node_id
 
   if [ -z "$node_id" ]; then
     node_id=0
@@ -51,13 +51,13 @@ done
 
 echo "是否安装v2ray？输入N或n不安装，否则为安装："
 if read -t 10 install_v2; then
-  if [ "$install_v2" != "N" ] && [ "$install_v2" != "n" ]; then
-    echo "您选择的是安装v2ray"
-  else
-    echo "您选择的是不安装v2ray"
-  fi
+    if [ "$install_v2" != "N" ] && [ "$install_v2" != "n" ]; then
+        echo "您选择的是安装v2ray"
+    else
+        echo "您选择的是不安装v2ray"
+    fi
 else
-  echo "超时未输入，默认安装v2ray"
+    echo "超时未输入，默认安装v2ray"
 fi
 
 # 安装工具
@@ -91,12 +91,12 @@ cd
 
 # 是否安装v2ray
 if [ "$install_v2" != "N" ] && [ "$install_v2" != "n" ]; then
-  # 安装v2ray
-  cd
-  bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
-  bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-dat-release.sh)
-  # 下载v2ray配置文件
-  wget -O /usr/local/etc/v2ray/config.json https://github.com/dgou45/fhs-install-v2ray/raw/ssr/config-v2ray.json
+    # 安装v2ray
+    cd
+    bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
+    bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-dat-release.sh)
+    # 下载v2ray配置文件
+    wget -O /usr/local/etc/v2ray/config.json https://github.com/dgou45/fhs-install-v2ray/raw/ssr/config-v2ray.json
 fi
 
 # 开启bbr
