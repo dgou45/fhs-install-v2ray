@@ -73,7 +73,7 @@ else
     echo "curl 已安装，无需进行安装。"
 fi
 
-# 安装 ssr
+# 安装 SSR
 git clone https://github.com/dgou45/shadowsocks-mod.git
 cd shadowsocks-mod/
 pip3 install -r requirements.txt
