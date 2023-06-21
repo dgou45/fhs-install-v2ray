@@ -49,7 +49,7 @@ if [[ $EUID -ne 0 ]]; then
     # 尝试切换到root
     if sudo -n true 2>/dev/null; then
         echo "切换到root用户。"
-        sudo su -c "
+        sudo bash -c "
             # 在root用户下继续执行后续命令
             echo '当前用户已是root。'
             # 在这里添加后续命令
