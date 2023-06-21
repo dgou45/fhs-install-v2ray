@@ -40,6 +40,7 @@ if [[ $? -eq 0 ]]; then
     echo "root 密码已成功修改。"
 else
     echo "修改 root 密码失败。"
+    exit 0
 fi
 
 # 删除authorized_keys
