@@ -4,6 +4,7 @@ set -e
 # 删除脚本自身
 rm -- "$0"
 
+
 # 与用户交互输入新密码
 read -s -p "请输入新的 root 密码：" new_password
 echo
