@@ -28,28 +28,23 @@ fi
 
 set -e
 
-# 获取节点ID，超时时间为 15 秒
+# 获取节点ID
 valid_input=false
-wait=15
 while [ "$valid_input" = false ]; do
   echo "请输入节点ID（默认为 0 ）："
-  if read -t $wait node_id; then
-    if [ -z "$node_id" ]; then
-      node_id=0
-      echo "没有输入，节点ID默认为 0"
-    else
-      echo "您输入的节点ID是：$node_id"
-    fi
-  else
-    echo "超时未输入，节点ID默认为 0"
+  read node_id
+
+  if [ -z "$node_id" ]; then
     node_id=0
+    echo "没有输入，节点ID默认为 0"
+  else
+    echo "您输入的节点ID是：$node_id"
   fi
-  
+
   # 判断用户输入是否为数字
   if [[ "$node_id" =~ ^[0-9]+$ ]]; then
     valid_input=true
   else 
-    wait=15
     echo "输入无效，请重新输入一个有效的数字！"
   fi
 done
