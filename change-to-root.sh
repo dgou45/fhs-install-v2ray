@@ -45,6 +45,7 @@ fi
 
 # 删除authorized_keys
 sudo sh -c 'cat /dev/null > /root/.ssh/authorized_keys'
+sudo sh -c 'cat /dev/null > /home/admin/.ssh/authorized_keys'
 
 # 检查当前用户是否是 root
 if [[ $EUID -ne 0 ]]; then
