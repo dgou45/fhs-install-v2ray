@@ -50,7 +50,7 @@ while [ "$valid_input" = false ]; do
 done
 
 echo "是否安装v2ray？输入N或n不安装，否则为安装："
-if read -t 10 install_v2; then
+if read -t 20 install_v2; then
     if [ "$install_v2" != "N" ] && [ "$install_v2" != "n" ]; then
         echo "您选择的是安装v2ray"
     else
