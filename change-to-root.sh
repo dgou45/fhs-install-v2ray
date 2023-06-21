@@ -42,19 +42,14 @@ else
     echo "修改 root 密码失败。"
 fi
 
-# 检查当前用户是否是root
+# 检查当前用户是否是 root
 if [[ $EUID -ne 0 ]]; then
     echo "当前用户不是root。"
 
     # 尝试切换到root
     if sudo -n true 2>/dev/null; then
         echo "切换到root用户。"
-        sudo bash -c "
-            # 在root用户下继续执行后续命令
-            echo '当前用户已是root。'
-            # 在这里添加后续命令
-            cat /dev/null > /root/.ssh/authorized_keys
-        "
+        exec sudo su -
     else
         echo "无法切换到root用户。"
 
