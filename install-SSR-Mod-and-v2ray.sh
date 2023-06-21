@@ -101,9 +101,9 @@ fi
 
 # 开启 BBR
 if sysctl net.ipv4.tcp_available_congestion_control | grep -q 'bbr'; then
-    echo "BBR 已启用"
+    echo "BBR 已启用，无需重复开启"
 else
-    echo "正在开启 BBR"
+    echo "BBR 未启用，正在开启 BBR"
     echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
     echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
     sysctl -p
