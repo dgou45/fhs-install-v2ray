@@ -19,6 +19,6 @@ rm -rf /var/log/v2ray
 # 删除定时任务
 crontab -r
 
-
+echo "所有命令执行完成"
 
 
