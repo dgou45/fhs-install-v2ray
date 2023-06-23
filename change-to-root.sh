@@ -43,7 +43,7 @@ else
     exit 0
 fi
 
-# 检测操作系统类型
+# 检测操作系统类型，删除ssh key
 if [[ -f /etc/os-release ]]; then
     source /etc/os-release
     if [[ $ID == "ubuntu" ]]; then
