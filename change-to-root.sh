@@ -43,8 +43,25 @@ else
     exit 0
 fi
 
-# 删除authorized_keys
-sudo sh -c 'cat /dev/null > /root/.ssh/authorized_keys'
-sudo sh -c 'cat /dev/null > /home/admin/.ssh/authorized_keys'
+# 检测操作系统类型
+if [[ -f /etc/os-release ]]; then
+    source /etc/os-release
+    if [[ $ID == "ubuntu" ]]; then
+        # Ubuntu 系统执行命令1
+        sudo sh -c 'cat /dev/null > /root/.ssh/authorized_keys'
+    elif [[ $ID == "debian" ]]; then
+        # Debian 系统执行命令2
+        sudo sh -c 'cat /dev/null > /home/admin/.ssh/authorized_keys'
+    else
+        echo "不受支持的操作系统"
+        exit 1
+    fi
+else
+    echo "未知的操作系统"
+    exit 1
+fi
 
 echo "所有命令执行完毕！"
+
+
+
