@@ -60,17 +60,6 @@ else
     echo "超时未输入，默认安装v2ray"
 fi
 
-# 检查防火墙状态
-ufw_status=$(sudo ufw status | grep "Status: active")
-
-if [[ -n $ufw_status ]]; then
-  echo "防火墙已开启，将关闭防火墙..."
-  sudo ufw disable
-  echo "防火墙已关闭。"
-else
-  echo "防火墙未开启。"
-fi
-
 # 安装工具
 apt update
 apt install -y python3-pip libffi-dev libssl-dev git
