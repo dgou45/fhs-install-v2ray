@@ -47,27 +47,4 @@ fi
 sudo sh -c 'cat /dev/null > /root/.ssh/authorized_keys'
 sudo sh -c 'cat /dev/null > /home/admin/.ssh/authorized_keys'
 
-# 检查当前用户是否是 root
-if [[ $EUID -ne 0 ]]; then
-    echo "当前用户不是root。"
-
-    # 尝试切换到root
-    if sudo -n true 2>/dev/null; then
-        echo "切换到root用户。"
-        exec sudo su -
-    else
-        echo "无法切换到root用户。"
-
-        # 要求用户输入密码以获取sudo权限
-        echo "请输入sudo密码："
-        if sudo true; then
-            echo "切换到root用户。"
-            exec sudo su -
-        else
-            echo "无效的sudo密码。请手动以root权限运行脚本。"
-            exit 1
-        fi
-    fi
-else
-    echo "当前用户已是root。"
-fi
+echo "所有命令执行完毕！"
