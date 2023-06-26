@@ -16,7 +16,7 @@
       "clients":[  
         {
 
-          "id": "123456789",
+          "id": "uuid-123456789",
           "alterId": 0,
           "security": "auto",
           "level": 1
