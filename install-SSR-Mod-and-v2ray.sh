@@ -56,7 +56,7 @@ while [ "$valid_input" = false ]; do
   if [[ "$node_id" =~ ^[0-9]+$ ]]; then
     valid_input=true
   else 
-    echo "输入无效，请重新输入一个有效的数字！"
+    echo "输入无效，请重新输入一个有效的数字，或按下确认键（默认为 0）！"
   fi
 done
 
