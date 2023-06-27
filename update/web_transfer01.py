@@ -691,4 +691,3 @@ class WebTransfer(object):
         if not ServerPool.get_instance().thread.is_alive():
             return False
         return True
-
