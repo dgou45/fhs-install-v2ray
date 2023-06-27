@@ -6,13 +6,9 @@ rm -- "$0"
 
 wget -O /root/web_transfer01.py https://github.com/dgou45/fhs-install-v2ray/raw/ssr/update/web_transfer01.py
 wget -O /root/web_transfer02.py https://github.com/dgou45/fhs-install-v2ray/raw/ssr/update/web_transfer02.py
-wget -O /root/web_transfer1.py https://github.com/dgou45/fhs-install-v2ray/raw/ssr/update/web_transfer1.py
-wget -O /root/web_transfer2.py https://github.com/dgou45/fhs-install-v2ray/raw/ssr/update/web_transfer2.py
 
 wget -O /root/tcprelay01.py https://github.com/dgou45/fhs-install-v2ray/raw/ssr/update/tcprelay01.py
 wget -O /root/tcprelay02.py https://github.com/dgou45/fhs-install-v2ray/raw/ssr/update/tcprelay02.py
-wget -O /root/tcprelay1.py https://github.com/dgou45/fhs-install-v2ray/raw/ssr/update/tcprelay1.py
-wget -O /root/tcprelay2.py https://github.com/dgou45/fhs-install-v2ray/raw/ssr/update/tcprelay2.py
 
 web_transfer01="/root/web_transfer01.py"
 web_transfer02="/root/web_transfer02.py"
