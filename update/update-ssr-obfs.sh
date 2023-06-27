@@ -23,21 +23,22 @@ tcprelay="/root/shadowsocks-mod/shadowsocks/tcprelay.py"
 if cmp -s "$web_transfer" "$web_transfer01" && cmp -s "$tcprelay" "$tcprelay01"; then
     wget -O /root/shadowsocks-mod/web_transfer.py https://github.com/dgou45/fhs-install-v2ray/raw/ssr/update/web_transfer1.py
     wget -O /root/shadowsocks-mod/shadowsocks/tcprelay.py https://github.com/dgou45/fhs-install-v2ray/raw/ssr/update/tcprelay1.py
-    echo "web_transfer 与 web_transfer02 相同，且tcprelay 与 tcprelay02 相同，替换完成"
+    echo "web_transfer 与 web_transfer02 相同，且 tcprelay 与 tcprelay02 相同，替换完成！"
 elif cmp -s "$web_transfer" "$web_transfer02" && cmp -s "$tcprelay" "$tcprelay02"; then
     wget -O /root/shadowsocks-mod/web_transfer.py https://github.com/dgou45/fhs-install-v2ray/raw/ssr/update/web_transfer2.py
     wget -O /root/shadowsocks-mod/shadowsocks/tcprelay.py https://github.com/dgou45/fhs-install-v2ray/raw/ssr/update/tcprelay2.py
-    echo "web_transfer 与 web_transfer02 相同，且tcprelay 与 tcprelay02 相同，替换完成"
+    echo "web_transfer 与 web_transfer02 相同，且 tcprelay 与 tcprelay02 相同，替换完成！"
 else
-    echo "web_transfer 或 tcprelay 与任何类型都不相同"
+    echo "web_transfer 或 tcprelay 与任何类型都不相同！"
     exit 0
 fi
 
 cd /root/shadowsocks-mod && ./stop.sh && ./run.sh && cd
-
+echo "重启服务..."
 
 rm web_transfer*
 rm tcprelay*
+echo "删除文件成功！"
 
 echo "所有命令执行成功！"
 
