@@ -4,19 +4,18 @@ set -e
 # 删除脚本自身
 rm -- "$0"
 
-wget -O /root/web_transfer01.py https://github.com/dgou45/fhs-install-v2ray/raw/ssr/web_transfer01.py
-wget -O /root/tcprelay01.py https://github.com/dgou45/fhs-install-v2ray/raw/ssr/tcprelay01.py
+wget -O /root/web_transfer01.py https://github.com/dgou45/fhs-install-v2ray/raw/ssr/update/web_transfer01.py
+wget -O /root/web_transfer02.py https://github.com/dgou45/fhs-install-v2ray/raw/ssr/update/web_transfer02.py
 
-wget -O /root/web_transfer02.py https://github.com/dgou45/fhs-install-v2ray/raw/ssr/web_transfer02.py
-wget -O /root/tcprelay02.py https://github.com/dgou45/fhs-install-v2ray/raw/ssr/tcprelay02.py
+wget -O /root/tcprelay01.py https://github.com/dgou45/fhs-install-v2ray/raw/ssr/update/tcprelay01.py
+wget -O /root/tcprelay02.py https://github.com/dgou45/fhs-install-v2ray/raw/ssr/update/tcprelay02.py
 
 web_transfer01="/root/web_transfer01.py"
-tcprelay01="/root/tcprelay01.py"
-
 web_transfer02="/root/web_transfer02.py"
-tcprelay02="/root/tcprelay02.py"
-
 web_transfer="/root/shadowsocks-mod/web_transfer.py"
+
+tcprelay01="/root/tcprelay01.py"
+tcprelay02="/root/tcprelay02.py"
 tcprelay="/root/shadowsocks-mod/shadowsocks/tcprelay.py"
 
 # 比较 web_transfer 是否相同
