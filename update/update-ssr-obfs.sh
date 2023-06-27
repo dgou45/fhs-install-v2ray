@@ -33,7 +33,8 @@ else
     exit 0
 fi
 
-cd /root/shadowsocks-mod && ./stop.sh && ./run.sh
+cd /root/shadowsocks-mod && ./stop.sh && ./run.sh && cd
+
 
 rm web_transfer*
 rm tcprelay*
