@@ -81,7 +81,7 @@ if ! command -v curl &> /dev/null; then
     sudo apt-get install curl -y
     echo "curl 安装完成。"
 else
-    echo "curl 已安装，无需再次安装。"
+    echo "curl 已安装，无需重复安装。"
 fi
 
 # 安装 SSR
