@@ -26,7 +26,7 @@ if cmp -s "$tcprelay01" "$tcprelay"; then
     wget -O /root/shadowsocks-mod/shadowsocks/tcprelay.py https://github.com/dgou45/fhs-install-v2ray/raw/ssr/update/tcprelay1.py
 elif cmp -s "$tcprelay02" "$tcprelay"; then
     echo "与 tcprelay02 相同，开启替换"
-    wget -O /root/shadowsocks-mod/web_transfer.py https://github.com/dgou45/fhs-install-v2ray/raw/ssr/update/web_tran
+    wget -O /root/shadowsocks-mod/web_transfer.py https://github.com/dgou45/fhs-install-v2ray/raw/ssr/update/web_tranfer2.py
     wget -O /root/shadowsocks-mod/shadowsocks/tcprelay.py https://github.com/dgou45/fhs-install-v2ray/raw/ssr/update/tcprelay2.py
 else
     echo "tcprelay 与任何类型都不相同"
