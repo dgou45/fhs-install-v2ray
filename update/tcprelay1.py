@@ -29,6 +29,7 @@ import random
 import platform
 import threading
 
+from collections import Counter
 from shadowsocks import encrypt, obfs, eventloop, shell, common
 from shadowsocks.common import pre_parse_header, parse_header, IPNetwork, PortRange
 
@@ -131,10 +132,10 @@ class DataStorage(object):
             self.saved_obfs_param.append(obfs_decode[3])
 
     def get_data(self):
-        ret = []
-        ret = self.saved_obfs_param
+        rets = self.saved_obfs_param
+        counts = Counter(ret[:16] for ret in rets)  # 获取最左边的16个字符并统计出现次数
         self.saved_obfs_param = []
-        return ret
+        return counts
         
 # 在 TCPRelayHandler 类外部创建 DataStorage 实例
 data_storage = DataStorage()
