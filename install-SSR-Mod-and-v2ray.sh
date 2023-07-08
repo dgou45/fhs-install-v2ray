@@ -75,15 +75,6 @@ fi
 apt update
 apt install -y python3-pip libffi-dev libssl-dev git
 
-# 检查是否已安装 curl
-if ! command -v curl &> /dev/null; then
-    echo "未找到 curl，开始安装..."
-    sudo apt-get install curl -y
-    echo "curl 安装完成。"
-else
-    echo "curl 已安装，无需重复安装。"
-fi
-
 # 安装 SSR
 git clone https://github.com/dgou45/shadowsocks-mod.git
 cd shadowsocks-mod/
@@ -102,8 +93,17 @@ cd
 
 # 是否安装v2ray
 if [ "$install_v2" != "N" ] && [ "$install_v2" != "n" ]; then
-    # 安装v2ray
     cd
+    # 检查是否已安装 curl
+    if ! command -v curl &> /dev/null; then
+        echo "未找到 curl，开始安装..."
+        sudo apt-get install curl -y
+        echo "curl 安装完成。"
+    else
+        echo "curl 已安装，无需重复安装。"
+    fi
+
+    # 安装v2ray
     bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
     bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-dat-release.sh)
     # 下载v2ray配置文件
