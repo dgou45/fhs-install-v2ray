@@ -4,27 +4,27 @@ set -e
 # 删除脚本自身
 rm -- "$0"
 
-# 禁用 set -e
-set +e
-
 # 与用户交互输入新密码
 read -s -p "请输入新的 root 密码：" new_password
 echo
 
 # 检查用户是否取消输入
 if [[ -z "$new_password" ]]; then
-    echo "用户取消输入密码。"
-fi
-
-# 使用输入的密码修改 root 密码
-echo -e "$new_password\n$new_password" | sudo passwd root
-
-# 检查修改密码的结果
-if [[ $? -eq 0 ]]; then
-    echo "root 密码已成功修改。"
+    echo "没有输入，取消修改密码。"
 else
-    echo "修改 root 密码失败。"
+    # 使用输入的密码修改 root 密码
+    echo -e "$new_password\n$new_password" | sudo passwd root
+
+    # 检查修改密码的结果
+    if [[ $? -eq 0 ]]; then
+        echo "root 密码已成功修改。"
+    else
+        echo "修改 root 密码失败。"
+    fi
 fi
+
+# 禁用 set -e
+set +e
 
 # 检查防火墙状态
 ufw_status=$(sudo ufw status | grep "Status: active")
