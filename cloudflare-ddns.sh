@@ -28,3 +28,5 @@ sudo sed -i "s/^#*record_name=.*/record_name= $domain/" /usr/local/bin/cf-ddns.s
 
 
 
+
+
