@@ -5,7 +5,7 @@ set -e
 rm -- "$0"
 
 # 与用户交互输入域名
-echo "请输入域名（tw1.example.com）："
+echo "请输入域名（格式：tw1.example.com）："
 read domain
 
 # 检查用户是否取消输入
