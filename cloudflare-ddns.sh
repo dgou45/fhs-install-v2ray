@@ -18,7 +18,7 @@ fi
 curl https://gist.githubusercontent.com/benkulbertis/fff10759c2391b6618dd/raw > /usr/local/bin/cf-ddns.sh && chmod +x /usr/local/bin/cf-ddns.sh
 
 # 修改域名
-sudo sed -i 's|record_name="www.example.com"|record_name="$domain"|' /usr/local/bin/cf-ddns.sh
+sudo sed -i "s|record_name=\"www.example.com\"|record_name=\"$domain\"|" /usr/local/bin/cf-ddns.sh
 
 # 新增定时任务
 (crontab -l ; echo "* * * * * /usr/local/bin/cf-ddns.sh >/dev/null 2>&1") | crontab -
