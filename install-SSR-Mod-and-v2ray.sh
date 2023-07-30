@@ -24,21 +24,14 @@ else
     fi
 fi
 
-# 禁用 set -e
-set +e
-
 # 检查防火墙状态
-ufw_status=$(sudo ufw status | grep "Status: active")
-
-if [[ -n $ufw_status ]]; then
+if sudo ufw status | grep -q "Status: active"; then
     echo "防火墙已开启，将关闭防火墙..."
     sudo ufw disable
     echo "防火墙已关闭。"
 else
     echo "防火墙未开启。"
 fi
-
-set -e
 
 # 获取节点ID
 valid_input=false
