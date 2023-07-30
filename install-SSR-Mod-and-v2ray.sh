@@ -25,7 +25,7 @@ else
 fi
 
 # 检查防火墙状态
-if sudo ufw status | grep -q "Status: active"; then
+if sudo ufw status | grep "Status: active"; then
     echo "防火墙已开启，将关闭防火墙..."
     sudo ufw disable
     echo "防火墙已关闭。"
