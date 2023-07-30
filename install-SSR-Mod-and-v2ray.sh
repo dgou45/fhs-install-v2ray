@@ -20,6 +20,7 @@ else
         echo "root 密码已成功修改。"
     else
         echo "修改 root 密码失败。"
+        exit 1
     fi
 fi
 
