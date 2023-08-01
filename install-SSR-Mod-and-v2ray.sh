@@ -116,6 +116,11 @@ else
     lsmod | grep bbr
 fi
 
+# 设置IPv4优先
+if ! grep -q "precedence ::ffff:0:0/96 100" "/etc/gai.conf"; then
+    echo "precedence ::ffff:0:0/96 100" >> /etc/gai.conf
+fi
+
 # 添加定时任务
 { echo "@reboot sh /root/shadowsocks-mod/run.sh"; echo "@reboot /bin/systemctl restart v2ray.service";echo "0 22 * * 0 /sbin/reboot";echo "0 22 * * * /bin/systemctl restart v2ray.service";echo "0 22 * * * sh /root/shadowsocks-mod/stop.sh && sh /root/shadowsocks-mod/run.sh"; } | EDITOR="tee" crontab -
 
