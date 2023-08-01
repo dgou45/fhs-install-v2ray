@@ -125,7 +125,7 @@ if [ -f "/etc/gai.conf" ]; then
             sudo sed -i "s|#precedence ::ffff:0:0/96  100|precedence ::ffff:0:0/96  100|" "/etc/gai.conf"
         else
             echo "添加IPv4优先设置"
-            echo "precedence ::ffff:0:0/96 100" >> /etc/gai.conf
+            echo "precedence ::ffff:0:0/96  100" >> /etc/gai.conf
         fi
     else
         echo "IPv4优先已经存在，无需设置"
