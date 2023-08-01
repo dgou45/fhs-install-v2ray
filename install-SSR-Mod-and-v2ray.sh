@@ -120,18 +120,18 @@ fi
 if [ -f "/etc/gai.conf" ]; then
     # 使用grep命令查找文件中是否包含搜索行
     if ! grep -qx "precedence ::ffff:0:0/96  100" "/etc/gai.conf"; then
-		if grep -qx "#precedence ::ffff:0:0/96  100" "/etc/gai.conf"; then
-			echo "修改IPv4优先设置"
-			sudo sed -i "s|#precedence ::ffff:0:0/96  100|precedence ::ffff:0:0/96  100|" "/etc/gai.conf"
-		else
-			echo "添加IPv4优先设置"
-			echo "precedence ::ffff:0:0/96 100" >> /etc/gai.conf
-		fi
-	else
-		echo "IPv4优先已经存在，无需设置"
+        if grep -qx "#precedence ::ffff:0:0/96  100" "/etc/gai.conf"; then
+            echo "修改IPv4优先设置"
+            sudo sed -i "s|#precedence ::ffff:0:0/96  100|precedence ::ffff:0:0/96  100|" "/etc/gai.conf"
+        else
+            echo "添加IPv4优先设置"
+            echo "precedence ::ffff:0:0/96 100" >> /etc/gai.conf
+        fi
+    else
+        echo "IPv4优先已经存在，无需设置"
     fi
 else
-    echo "文件/etc/gai.conf不存在，无需设置IPv4优先"
+    echo "文件/etc/gai.conf不存在"
 fi
 
 # 添加定时任务
