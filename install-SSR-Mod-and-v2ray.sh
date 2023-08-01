@@ -131,7 +131,7 @@ if [ -f "/etc/gai.conf" ]; then
         echo "IPv4优先已经存在，无需设置"
     fi
 else
-    echo "文件/etc/gai.conf不存在"
+    echo "文件/etc/gai.conf不存在，无需设置IPv4优先"
 fi
 
 # 添加定时任务
