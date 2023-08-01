@@ -116,19 +116,16 @@ else
     lsmod | grep bbr
 fi
 
-file_gai="/etc/gai.conf"
-pattern_gai="precedence ::ffff:0:0/96  100"
-pattern_gai2="#precedence ::ffff:0:0/96  100"
 # 设置IPv4优先
-if [ -f "$file_gai" ]; then
+if [ -f "/etc/gai.conf" ]; then
     # 使用grep命令查找文件中是否包含搜索行
-    if ! grep -qx "$pattern_gai" "$file_gai"; then
-        if grep -qx "$pattern_gai2" "$file_gai"; then
+    if ! grep -qx "precedence ::ffff:0:0/96  100" "/etc/gai.conf"; then
+        if grep -qx "#precedence ::ffff:0:0/96  100" "/etc/gai.conf"; then
             echo "修改IPv4优先设置"
-            sudo sed -i 's|'"$pattern_gai2"'|'"$pattern_gai"'|' "$file_gai"
+            sudo sed -i "s|#precedence ::ffff:0:0/96  100|precedence ::ffff:0:0/96  100|" "/etc/gai.conf"
         else
             echo "添加IPv4优先设置"
-            echo "$pattern_gai" >> "$file_gai"
+            echo "precedence ::ffff:0:0/96  100" >> /etc/gai.conf
         fi
     else
         echo "IPv4优先已经存在，无需设置"
@@ -144,6 +141,5 @@ fi
 sudo sed -i "s|NODE_ID = 0|NODE_ID = $node_id|" /root/shadowsocks-mod/userapiconfig.py
 
 echo "所有命令执行成功！"
-
 
 
