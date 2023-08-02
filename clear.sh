@@ -19,6 +19,8 @@ rm -rf /var/log/v2ray
 # 删除定时任务
 crontab -r
 
-echo "所有命令执行完成"
+echo
+echo
+echo -e "\033[32m所有命令执行成功！\033[0m"
 
 
