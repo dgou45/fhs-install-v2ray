@@ -63,9 +63,9 @@ else
     exit 1
 fi
 
-echo
-echo
-echo -e "\033[32m所有命令执行成功！\033[0m"
+echo 
+echo 
+echo -e "\033[43;32m所有命令执行成功！\033[0m"
 
 
 
