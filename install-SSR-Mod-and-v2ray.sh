@@ -140,8 +140,7 @@ fi
 # 修改ssr节点ID
 sudo sed -i "s|NODE_ID = 0|NODE_ID = $node_id|" /root/shadowsocks-mod/userapiconfig.py
 
-echo 
-echo -e "\033[43;32m所有命令执行成功！\033[0m"
+echo -e "\033[32m恭喜您，所有命令执行成功！\033[0m"
 
 
 
