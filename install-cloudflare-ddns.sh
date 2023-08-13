@@ -44,13 +44,13 @@ fi
 
 # 运行脚本
 output=$(bash /usr/local/bin/cf-ddns.sh)
+
+# 检查输出中是否包含 "IP changed to"
 if [[ $output == *"IP changed to"* ]]; then
-    echo -e "\033[32m恭喜您，\033[33m所有命令执行成功！\033[0m"
+    echo "成功：IP 已更改"
 else
-    echo -e "\033[31mcf-ddns脚本安装完毕，但是运行出错，IP修改失败！\033[0m"
+    echo "失败：IP 未更改"
 fi
-
-
 
 
 
