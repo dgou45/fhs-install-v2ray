@@ -135,10 +135,44 @@ else
 fi
 
 # 添加定时任务
-{ echo "@reboot sh /root/shadowsocks-mod/run.sh"; echo "@reboot /bin/systemctl restart v2ray.service";echo "0 22 * * 0 /sbin/reboot";echo "0 22 * * * /bin/systemctl restart v2ray.service";echo "0 22 * * * sh /root/shadowsocks-mod/stop.sh && sh /root/shadowsocks-mod/run.sh"; } | EDITOR="tee" crontab -
+(crontab -l ; echo "@reboot sh /root/shadowsocks-mod/run.sh") | crontab -
+(crontab -l ; echo "@reboot /bin/systemctl restart v2ray.service") | crontab -
+(crontab -l ; echo "0 22 * * 0 /sbin/reboot") | crontab -
+(crontab -l ; echo "0 22 * * * /bin/systemctl restart v2ray.service") | crontab -
+(crontab -l ; echo "0 22 * * * sh /root/shadowsocks-mod/stop.sh && sh /root/shadowsocks-mod/run.sh") | crontab -
 
-# 修改ssr节点ID
+# 修改userapiconfig.py 
 sudo sed -i "s|NODE_ID = 0|NODE_ID = $node_id|" /root/shadowsocks-mod/userapiconfig.py
+sudo sed -i "s|'zhaoj.in'|'microsoft.com,www.icloud.com,www.apple.com,www.office.com,www.jd.hk,www.bing.com,cloudfront.com,cloudflare.com,ajax.microsoft.com'|" /root/shadowsocks-mod/userapiconfig.py 
+
+if [ -n "$1" ]; then
+	sudo sed -i "s|'https://demo.sspanel.host'|$1|" /root/shadowsocks-mod/userapiconfig.py
+else
+	echo -e "\033[31m没有获取到修改userapiconfig.py的参数1，请手动修改！\033[0m"
+fi
+
+if [ -n "$2" ]; then
+	sudo sed -i "s|'sspanel'|$2|" /root/shadowsocks-mod/userapiconfig.py
+else
+	echo -e "\033[31m没有获取到修改userapiconfig.py的参数2，请手动修改！\033[0m"
+fi
+
+# 修改v2ray config
+if [ "$install_v2" != "N" ] && [ "$install_v2" != "n" ]; then
+	if [ -n "$3" ]; then
+		sudo sed -i "s|uuid-123456789|$3|" /usr/local/etc/v2ray/config.json
+	else
+		echo -e "\033[31m没有获取到修改v2ray config的参数3，请手动修改！\033[0m"
+	fi
+fi
+
+# 启动ssr
+cd /root/shadowsocks-mod && ./stop.sh && ./run.sh; 
+
+# 启动v2ray
+if [ "$install_v2" != "N" ] && [ "$install_v2" != "n" ]; then
+	cd && service v2ray restart;
+fi
 
 echo -e "\033[32m恭喜您，\033[33m所有命令执行成功！\033[0m"
 
