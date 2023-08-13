@@ -5,7 +5,7 @@ set -e
 rm -- "$0"
 
 # 与用户交互输入新密码
-read -s -p "请输入新的 root 密码：" new_password
+read -s -p "请输入新的 root 密码，回车跳过：" new_password
 echo
 
 # 检查用户是否取消输入
