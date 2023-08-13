@@ -23,8 +23,8 @@ rm -rf /root/cloudflare.ids  cloudflare.log  ip.txt
 # 删除定时任务
 crontab -r
 
-echo 
-echo -e "\033[43;32m所有命令执行成功！\033[0m"
+echo -e "\033[32m恭喜您，\033[33m所有命令执行成功！\033[0m"
+
 
 
 
