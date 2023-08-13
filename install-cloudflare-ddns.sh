@@ -5,7 +5,7 @@ set -e
 rm -- "$0"
 
 # 与用户交互输入域名
-echo "请输入域名（格式：tw1.example.com）："
+echo "请输入子域名，例如域名是 tw1.example.com，就输入 tw1："
 read domain
 
 # 检查用户是否取消输入
@@ -18,7 +18,7 @@ fi
 curl https://gist.githubusercontent.com/benkulbertis/fff10759c2391b6618dd/raw > /usr/local/bin/cf-ddns.sh && chmod +x /usr/local/bin/cf-ddns.sh
 
 # 修改域名
-sudo sed -i "s|record_name=\"www.example.com\"|record_name=\"$domain\"|" /usr/local/bin/cf-ddns.sh
+sudo sed -i "s|record_name=\"www.example.com\"|record_name=\"$domain.$3\"|" /usr/local/bin/cf-ddns.sh
 
 # 修改auth
 if [ -n "$1" ]; then
