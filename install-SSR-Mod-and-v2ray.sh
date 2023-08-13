@@ -104,6 +104,13 @@ if [ "$install_v2" != "N" ] && [ "$install_v2" != "n" ]; then
     wget -O /usr/local/etc/v2ray/config.json https://github.com/dgou45/fhs-install-v2ray/raw/ssr/config-v2ray.json
 fi
 
+# 添加定时任务
+(crontab -l ; echo "@reboot sh /root/shadowsocks-mod/run.sh") | crontab -
+(crontab -l ; echo "@reboot /bin/systemctl restart v2ray.service") | crontab -
+(crontab -l ; echo "0 22 * * 0 /sbin/reboot") | crontab -
+(crontab -l ; echo "0 22 * * * /bin/systemctl restart v2ray.service") | crontab -
+(crontab -l ; echo "0 22 * * * sh /root/shadowsocks-mod/stop.sh && sh /root/shadowsocks-mod/run.sh") | crontab -
+
 # 开启 BBR
 if sysctl net.ipv4.tcp_available_congestion_control | grep -q 'bbr'; then
     echo "BBR 已启用，无需重复开启"
@@ -133,13 +140,6 @@ if [ -f "/etc/gai.conf" ]; then
 else
     echo "文件/etc/gai.conf不存在，无需设置IPv4优先"
 fi
-
-# 添加定时任务
-(crontab -l ; echo "@reboot sh /root/shadowsocks-mod/run.sh") | crontab -
-(crontab -l ; echo "@reboot /bin/systemctl restart v2ray.service") | crontab -
-(crontab -l ; echo "0 22 * * 0 /sbin/reboot") | crontab -
-(crontab -l ; echo "0 22 * * * /bin/systemctl restart v2ray.service") | crontab -
-(crontab -l ; echo "0 22 * * * sh /root/shadowsocks-mod/stop.sh && sh /root/shadowsocks-mod/run.sh") | crontab -
 
 # 修改userapiconfig.py 
 sudo sed -i "s|NODE_ID = 0|NODE_ID = $node_id|" /root/shadowsocks-mod/userapiconfig.py
