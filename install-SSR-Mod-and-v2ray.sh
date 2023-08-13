@@ -36,7 +36,7 @@ fi
 # 获取节点ID
 valid_input=false
 while [ "$valid_input" = false ]; do
-    echo "请输入节点ID（默认为 0 ）："
+    echo "请输入节点ID（默认为 0 ），回车跳过："
     read node_id
 
   if [ -z "$node_id" ]; then
