@@ -5,7 +5,7 @@ set -e
 rm -- "$0"
 
 # 与用户交互输入域名
-echo "请输入域名，例如 tw1.example.com："
+echo "请输入域名（格式：tw1.example.com）："
 read domain
 
 # 检查用户是否取消输入
@@ -22,37 +22,30 @@ sudo sed -i "s|record_name=\"www.example.com\"|record_name=\"$domain\"|" /usr/lo
 
 # 修改auth
 if [ -n "$1" ]; then
-    sudo sed -i "s|auth_email=\"user@example.com\"|auth_email=$1|" /usr/local/bin/cf-ddns.sh
+	sudo sed -i "s|auth_email=\"user@example.com\"|auth_email=$1|" /usr/local/bin/cf-ddns.sh
 else
-    echo -e "\033[31m没有获取到参数1，请手动修改！\033[0m"
+	echo -e "\033[31m没有获取到参数1，请手动修改！\033[0m"
 fi
 
 if [ -n "$2" ]; then
-    sudo sed -i "s|auth_key=\"c2547eb745079dac9320b638f5e225cf483cc5cfdda41\"|auth_key=$2|" /usr/local/bin/cf-ddns.sh
+	sudo sed -i "s|auth_key=\"c2547eb745079dac9320b638f5e225cf483cc5cfdda41\"|auth_key=$2|" /usr/local/bin/cf-ddns.sh
 else
-    echo -e "\033[31m没有获取到参数2，请手动修改！\033[0m"
+	echo -e "\033[31m没有获取到参数2，请手动修改！\033[0m"
 fi
 
 if [ -n "$3" ]; then
-    sudo sed -i "s|zone_name=\"example.com\"|zone_name=$3|" /usr/local/bin/cf-ddns.sh
+	sudo sed -i "s|zone_name=\"example.com\"|zone_name=$3|" /usr/local/bin/cf-ddns.sh
 else
-    echo -e "\033[31m没有获取到参数3，请手动修改！\033[0m"
+	echo -e "\033[31m没有获取到参数3，请手动修改！\033[0m"
 fi
+
+# 运行脚本
+bash /usr/local/bin/cf-ddns.sh
 
 # 新增定时任务
 (crontab -l ; echo "* * * * * /usr/local/bin/cf-ddns.sh >/dev/null 2>&1") | crontab -
 
-# 运行脚本
-output=$(bash /usr/local/bin/cf-ddns.sh)
-
-# 检查输出中是否包含 "IP changed to"
-if [[ $output == *"IP changed to"* ]]; then
-    echo "成功：IP 已更改"
-else
-    echo "失败：IP 未更改"
-fi
-
-
+echo -e "\033[32m恭喜您，\033[33m所有命令执行成功！\033[0m"
 
 
 
