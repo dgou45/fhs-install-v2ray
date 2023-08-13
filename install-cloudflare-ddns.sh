@@ -20,6 +20,28 @@ curl https://gist.githubusercontent.com/benkulbertis/fff10759c2391b6618dd/raw > 
 # 修改域名
 sudo sed -i "s|record_name=\"www.example.com\"|record_name=\"$domain\"|" /usr/local/bin/cf-ddns.sh
 
+# 修改auth
+if [ -n "$1" ]; then
+	sudo sed -i "s|\"user@example.com\"|$1|" /usr/local/bin/cf-ddns.sh
+else
+	echo -e "\033[31m没有获取到参数1，请手动修改！\033[0m"
+fi
+
+if [ -n "$2" ]; then
+	sudo sed -i "s|\"c2547eb745079dac9320b638f5e225cf483cc5cfdda41\"|$2|" /usr/local/bin/cf-ddns.sh
+else
+	echo -e "\033[31m没有获取到参数2，请手动修改！\033[0m"
+fi
+
+if [ -n "$3" ]; then
+	sudo sed -i "s|\"example.com\"|$3|" /usr/local/bin/cf-ddns.sh
+else
+	echo -e "\033[31m没有获取到参数3，请手动修改！\033[0m"
+fi
+
+# 运行脚本
+bash /usr/local/bin/cf-ddns.sh
+
 # 新增定时任务
 (crontab -l ; echo "* * * * * /usr/local/bin/cf-ddns.sh >/dev/null 2>&1") | crontab -
 
