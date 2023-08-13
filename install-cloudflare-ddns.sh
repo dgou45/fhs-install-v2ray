@@ -22,21 +22,21 @@ sudo sed -i "s|record_name=\"www.example.com\"|record_name=\"$domain\"|" /usr/lo
 
 # 修改auth
 if [ -n "$1" ]; then
-	sudo sed -i "s|auth_email=\"user@example.com\"|auth_email=$1|" /usr/local/bin/cf-ddns.sh
+    sudo sed -i "s|auth_email=\"user@example.com\"|auth_email=$1|" /usr/local/bin/cf-ddns.sh
 else
-	echo -e "\033[31m没有获取到参数1，请手动修改！\033[0m"
+    echo -e "\033[31m没有获取到参数1，请手动修改！\033[0m"
 fi
 
 if [ -n "$2" ]; then
-	sudo sed -i "s|auth_key=\"c2547eb745079dac9320b638f5e225cf483cc5cfdda41\"|auth_key=$2|" /usr/local/bin/cf-ddns.sh
+    sudo sed -i "s|auth_key=\"c2547eb745079dac9320b638f5e225cf483cc5cfdda41\"|auth_key=$2|" /usr/local/bin/cf-ddns.sh
 else
-	echo -e "\033[31m没有获取到参数2，请手动修改！\033[0m"
+    echo -e "\033[31m没有获取到参数2，请手动修改！\033[0m"
 fi
 
 if [ -n "$3" ]; then
-	sudo sed -i "s|zone_name=\"example.com\"|zone_name=$3|" /usr/local/bin/cf-ddns.sh
+    sudo sed -i "s|zone_name=\"example.com\"|zone_name=$3|" /usr/local/bin/cf-ddns.sh
 else
-	echo -e "\033[31m没有获取到参数3，请手动修改！\033[0m"
+    echo -e "\033[31m没有获取到参数3，请手动修改！\033[0m"
 fi
 
 # 运行脚本
