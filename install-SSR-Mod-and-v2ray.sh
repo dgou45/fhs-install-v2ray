@@ -167,11 +167,11 @@ if [ "$install_v2" != "N" ] && [ "$install_v2" != "n" ]; then
 fi
 
 # 启动ssr
-cd /root/shadowsocks-mod && ./stop.sh && ./run.sh; 
+cd /root/shadowsocks-mod && ./stop.sh && ./run.sh && cd
 
 # 启动v2ray
 if [ "$install_v2" != "N" ] && [ "$install_v2" != "n" ]; then
-    cd && service v2ray restart;
+    service v2ray restart
 fi
 
 echo -e "\033[32m恭喜您，\033[33m所有命令执行成功！\033[0m"
