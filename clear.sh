@@ -17,7 +17,7 @@ rm -rf /usr/local/etc/v2ray
 rm -rf /var/log/v2ray
 
 # 删除cf ddns
-rm -rf /usr/local/bin/cf-ddns.sh
+shred -zvu -n 5 /usr/local/bin/cf-ddns.sh
 rm -rf /root/cloudflare.ids  cloudflare.log  ip.txt
 
 # 删除定时任务
