@@ -39,13 +39,19 @@ else
 	echo -e "\033[31m没有获取到参数3，请手动修改！\033[0m"
 fi
 
-# 运行脚本
-bash /usr/local/bin/cf-ddns.sh
-
 # 新增定时任务
 (crontab -l ; echo "* * * * * /usr/local/bin/cf-ddns.sh >/dev/null 2>&1") | crontab -
 
-echo -e "\033[32m恭喜您，\033[33m所有命令执行成功！\033[0m"
+# 运行脚本
+output=$(bash /usr/local/bin/cf-ddns.sh)
+if [[ $output == *"IP changed to"* ]]; then
+	echo -e "\033[32m恭喜您，\033[33m所有命令执行成功！\033[0m"
+else
+	echo -e "\033[31mcf-ddns脚本安装完毕，但是运行出错，IP修改失败！\033[0m"
+fi
+
+
+
 
 
 
