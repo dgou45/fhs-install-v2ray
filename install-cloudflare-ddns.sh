@@ -45,7 +45,7 @@ bash /usr/local/bin/cf-ddns.sh
 # 新增定时任务
 (crontab -l ; echo "* * * * * /usr/local/bin/cf-ddns.sh >/dev/null 2>&1") | crontab -
 
-echo -e "\033[32m恭喜您，\033[33m$(basename "$0") 的所有命令执行成功！\033[0m"
+echo -e "\033[32m恭喜您，\033[33m所有命令执行成功！\033[0m"
 
 
 
