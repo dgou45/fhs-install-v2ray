@@ -146,24 +146,24 @@ sudo sed -i "s|NODE_ID = 0|NODE_ID = $node_id|" /root/shadowsocks-mod/userapicon
 sudo sed -i "s|MU_SUFFIX = 'zhaoj.in'|MU_SUFFIX = 'microsoft.com,www.icloud.com,www.apple.com,www.office.com,www.jd.hk,www.bing.com,cloudfront.com,cloudflare.com,ajax.microsoft.com'|" /root/shadowsocks-mod/userapiconfig.py 
 
 if [ -n "$1" ]; then
-	sudo sed -i "s|WEBAPI_URL = 'https://demo.sspanel.host'|WEBAPI_URL = $1|" /root/shadowsocks-mod/userapiconfig.py
+    sudo sed -i "s|WEBAPI_URL = 'https://demo.sspanel.host'|WEBAPI_URL = $1|" /root/shadowsocks-mod/userapiconfig.py
 else
-	echo -e "\033[31m没有获取到修改userapiconfig.py的参数1，请手动修改！\033[0m"
+    echo -e "\033[31m没有获取到修改userapiconfig.py的参数1，请手动修改！\033[0m"
 fi
 
 if [ -n "$2" ]; then
-	sudo sed -i "s|WEBAPI_TOKEN = 'sspanel'|WEBAPI_TOKEN = $2|" /root/shadowsocks-mod/userapiconfig.py
+    sudo sed -i "s|WEBAPI_TOKEN = 'sspanel'|WEBAPI_TOKEN = $2|" /root/shadowsocks-mod/userapiconfig.py
 else
-	echo -e "\033[31m没有获取到修改userapiconfig.py的参数2，请手动修改！\033[0m"
+    echo -e "\033[31m没有获取到修改userapiconfig.py的参数2，请手动修改！\033[0m"
 fi
 
 # 修改v2ray config
 if [ "$install_v2" != "N" ] && [ "$install_v2" != "n" ]; then
-	if [ -n "$3" ]; then
-		sudo sed -i "s|uuid-123456789|$3|" /usr/local/etc/v2ray/config.json
-	else
-		echo -e "\033[31m没有获取到修改v2ray config的参数3，请手动修改！\033[0m"
-	fi
+    if [ -n "$3" ]; then
+    	sudo sed -i "s|uuid-123456789|$3|" /usr/local/etc/v2ray/config.json
+    else
+    	echo -e "\033[31m没有获取到修改v2ray config的参数3，请手动修改！\033[0m"
+    fi
 fi
 
 # 启动ssr
@@ -171,7 +171,7 @@ cd /root/shadowsocks-mod && ./stop.sh && ./run.sh;
 
 # 启动v2ray
 if [ "$install_v2" != "N" ] && [ "$install_v2" != "n" ]; then
-	cd && service v2ray restart;
+    cd && service v2ray restart;
 fi
 
 echo -e "\033[32m恭喜您，\033[33m所有命令执行成功！\033[0m"
