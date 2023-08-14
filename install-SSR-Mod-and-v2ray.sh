@@ -104,13 +104,6 @@ if [ "$install_v2" != "N" ] && [ "$install_v2" != "n" ]; then
     wget -O /usr/local/etc/v2ray/config.json https://github.com/dgou45/fhs-install-v2ray/raw/ssr/config-v2ray.json
 fi
 
-# 添加定时任务
-(crontab -l ; echo "@reboot sh /root/shadowsocks-mod/run.sh") | crontab -
-(crontab -l ; echo "@reboot /bin/systemctl restart v2ray.service") | crontab -
-(crontab -l ; echo "0 22 * * 0 /sbin/reboot") | crontab -
-(crontab -l ; echo "0 22 * * * /bin/systemctl restart v2ray.service") | crontab -
-(crontab -l ; echo "0 22 * * * sh /root/shadowsocks-mod/stop.sh && sh /root/shadowsocks-mod/run.sh") | crontab -
-
 # 开启 BBR
 if sysctl net.ipv4.tcp_available_congestion_control | grep -q 'bbr'; then
     echo "BBR 已启用，无需重复开启"
@@ -165,6 +158,13 @@ if [ "$install_v2" != "N" ] && [ "$install_v2" != "n" ]; then
     	echo -e "\033[31m没有获取到修改v2ray config的参数3，请手动修改！\033[0m"
     fi
 fi
+
+# 添加定时任务
+(crontab -l ; echo "@reboot sh /root/shadowsocks-mod/run.sh") | crontab -
+(crontab -l ; echo "@reboot /bin/systemctl restart v2ray.service") | crontab -
+(crontab -l ; echo "0 22 * * 0 /sbin/reboot") | crontab -
+(crontab -l ; echo "0 22 * * * /bin/systemctl restart v2ray.service") | crontab -
+(crontab -l ; echo "0 22 * * * sh /root/shadowsocks-mod/stop.sh && sh /root/shadowsocks-mod/run.sh") | crontab -
 
 # 启动ssr
 cd /root/shadowsocks-mod && ./stop.sh && ./run.sh && cd
