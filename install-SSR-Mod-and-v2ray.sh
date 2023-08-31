@@ -160,8 +160,7 @@ if [ "$install_v2" != "N" ] && [ "$install_v2" != "n" ]; then
 fi
 
 # 添加定时任务
-crontab -l
-(crontab -l ; echo "@reboot sh /root/shadowsocks-mod/run.sh") | crontab -
+(echo "@reboot sh /root/shadowsocks-mod/run.sh") | crontab -
 (crontab -l ; echo "@reboot /bin/systemctl restart v2ray.service") | crontab -
 (crontab -l ; echo "0 22 * * 0 /sbin/reboot") | crontab -
 (crontab -l ; echo "0 22 * * * /bin/systemctl restart v2ray.service") | crontab -
