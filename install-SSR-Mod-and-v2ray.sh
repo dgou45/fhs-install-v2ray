@@ -55,7 +55,7 @@ else
 fi
 
 # 检查是否已经安装了sudo
-if ! command -v sudo &> /dev/null then
+if ! command -v sudo &> /dev/null; then
     echo "sudo 未安装，正在安装..."
     # 安装sudo
     apt-get update
