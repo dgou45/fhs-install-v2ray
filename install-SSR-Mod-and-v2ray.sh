@@ -24,15 +24,6 @@ else
     fi
 fi
 
-# 检查防火墙状态
-if sudo ufw status | grep "Status: active"; then
-    echo "防火墙已开启，将关闭防火墙..."
-    sudo ufw disable
-    echo "防火墙已关闭。"
-else
-    echo "防火墙未开启。"
-fi
-
 # 获取节点ID
 valid_input=false
 while [ "$valid_input" = false ]; do
@@ -54,15 +45,32 @@ while [ "$valid_input" = false ]; do
   fi
 done
 
-echo "是否安装v2ray？输入N或n不安装，否则为安装："
-if read -t 20 install_v2; then
-    if [ "$install_v2" != "N" ] && [ "$install_v2" != "n" ]; then
-        echo "您选择的是安装v2ray"
-    else
-        echo "您选择的是不安装v2ray"
-    fi
+# 询问是否安装v2ray
+read -p "是否安装v2ray？输入 N 或 n 不安装，否则为安装：" install_v2
+
+if [[ "$install_v2" == "N" || "$install_v2" == "n" ]]; then
+    echo "不安装v2ray。"
 else
-    echo "超时未输入，默认安装v2ray"
+    echo "安装v2ray。"
+fi
+
+# 检查是否已经安装了sudo
+if ! command -v sudo &> /dev/null then
+    echo "sudo 未安装，正在安装..."
+    # 安装sudo
+    apt-get update
+    apt-get install -y sudo
+else
+    echo "sudo 已经安装。"
+fi
+
+# 检查防火墙状态
+if sudo ufw status | grep "Status: active"; then
+    echo "防火墙已开启，将关闭防火墙..."
+    sudo ufw disable
+    echo "防火墙已关闭。"
+else
+    echo "防火墙未开启。"
 fi
 
 # 安装工具
