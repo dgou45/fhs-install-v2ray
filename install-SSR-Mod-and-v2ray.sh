@@ -183,8 +183,8 @@ if [ "$install_v2" != "N" ] && [ "$install_v2" != "n" ]; then
 fi
 
 echo "..."
-echo ".."
-echo "."
+echo "..."
+echo "..."
 echo -e "\033[32m恭喜您，\033[33m所有命令执行成功！\033[0m"
 
 
