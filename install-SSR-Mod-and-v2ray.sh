@@ -4,6 +4,16 @@ set -e
 # 删除脚本自身
 rm -- "$0"
 
+# 检查是否已经安装了sudo
+if ! command -v sudo &> /dev/null; then
+    echo "sudo 未安装，正在安装..."
+    # 安装sudo
+    apt-get update
+    apt-get install -y sudo
+else
+    echo "sudo 已经安装。"
+fi
+
 # 与用户交互输入新密码
 read -s -p "请输入新的 root 密码，回车跳过：" new_password
 echo
@@ -52,16 +62,6 @@ if [[ "$install_v2" == "N" || "$install_v2" == "n" ]]; then
     echo "不安装v2ray。"
 else
     echo "安装v2ray。"
-fi
-
-# 检查是否已经安装了sudo
-if ! command -v sudo &> /dev/null; then
-    echo "sudo 未安装，正在安装..."
-    # 安装sudo
-    apt-get update
-    apt-get install -y sudo
-else
-    echo "sudo 已经安装。"
 fi
 
 # 检查防火墙状态
