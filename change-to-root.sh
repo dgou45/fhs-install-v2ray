@@ -48,12 +48,16 @@ if [[ -f /etc/os-release ]]; then
     source /etc/os-release
     if [[ $ID == "ubuntu" ]]; then
         # Ubuntu 系统执行命令1
-        sudo sh -c 'cat /dev/null > /root/.ssh/authorized_keys'
-        echo "删除Ubuntu authorized_keys成功"
+        if [ -f "/root/.ssh/authorized_keys" ]; then
+            sudo sh -c 'cat /dev/null > /root/.ssh/authorized_keys'
+            echo "删除Ubuntu authorized_keys成功"
+        fi
     elif [[ $ID == "debian" ]]; then
         # Debian 系统执行命令2
-        sudo sh -c 'cat /dev/null > /home/admin/.ssh/authorized_keys'
-        echo "删除Debian authorized_keys成功"
+        if [ -f "/home/admin/.ssh/authorized_keys" ]; then
+            sudo sh -c 'cat /dev/null > /home/admin/.ssh/authorized_keys'
+            echo "删除Debian authorized_keys成功"
+        fi
     else
         echo "不受支持的操作系统"
         exit 1
