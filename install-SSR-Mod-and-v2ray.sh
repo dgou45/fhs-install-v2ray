@@ -59,9 +59,9 @@ done
 read -p "是否安装v2ray？[Y/n] " install_v2
 
 if [[ "$install_v2" == "N" || "$install_v2" == "n" ]]; then
-    echo "不安装v2ray。"
+    echo "不安装v2ray..."
 else
-    echo "安装v2ray。"
+    echo "安装v2ray..."
 fi
 
 # 检查防火墙状态
