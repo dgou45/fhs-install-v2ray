@@ -56,7 +56,7 @@ while [ "$valid_input" = false ]; do
 done
 
 # 询问是否安装v2ray
-read -p "是否安装v2ray？输入 N 或 n 不安装，否则为安装：" install_v2
+read -p "是否安装v2ray？[Y/n]" install_v2
 
 if [[ "$install_v2" == "N" || "$install_v2" == "n" ]]; then
     echo "不安装v2ray。"
