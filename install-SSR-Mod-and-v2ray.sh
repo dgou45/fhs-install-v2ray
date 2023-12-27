@@ -78,7 +78,7 @@ apt update
 apt install -y python3-pip libffi-dev libssl-dev git
 
 # 安装加密
-apt install build-essential -y
+apt install -y build-essential
 wget https://github.com/jedisct1/libsodium/releases/download/1.0.18-RELEASE/libsodium-1.0.18.tar.gz
 tar xf libsodium-1.0.18.tar.gz && cd libsodium-1.0.18
 ./configure && make -j2 && make install
