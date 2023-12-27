@@ -77,20 +77,20 @@ fi
 apt update
 apt install -y python3-pip libffi-dev libssl-dev git
 
+# 安装加密
+apt install build-essential -y
+wget https://github.com/jedisct1/libsodium/releases/download/1.0.18-RELEASE/libsodium-1.0.18.tar.gz
+tar xf libsodium-1.0.18.tar.gz && cd libsodium-1.0.18
+./configure && make -j2 && make install
+ldconfig
+cd
+
 # 安装 SSR
 git clone https://github.com/dgou45/shadowsocks-mod.git
 cd shadowsocks-mod/
 pip3 install -r requirements.txt
 cp apiconfig.py userapiconfig.py
 cp config.json user-config.json
-cd
-
-# 安装加密
-apt-get install build-essential
-wget https://github.com/jedisct1/libsodium/releases/download/1.0.18-RELEASE/libsodium-1.0.18.tar.gz
-tar xf libsodium-1.0.18.tar.gz && cd libsodium-1.0.18
-./configure && make -j2 && make install
-ldconfig
 cd
 
 # 是否安装v2ray
