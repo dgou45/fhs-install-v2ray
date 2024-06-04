@@ -14,6 +14,9 @@ if [ "$(id -u)" -ne 0 ]; then
     # 修改 PermitRootLogin 配置
     sudo sed -i 's/^#*PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
 
+    # 修改 PasswordAuthentication 配置
+    sudo sed -i 's/^#*PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config.d/*-settings.conf
+
     # 重启 SSH 服务
     sudo service sshd restart
 
