@@ -4,14 +4,24 @@ set -e
 # 删除脚本自身
 rm -- "$0"
 
+apt-get update
+
 # 检查是否已经安装了sudo
 if ! command -v sudo &> /dev/null; then
     echo "sudo 未安装，正在安装..."
     # 安装sudo
-    apt-get update
     apt-get install -y sudo
 else
-    echo "sudo 已经安装。"
+    echo "sudo 已经安装"
+fi
+
+# 检查是否已经安装了 curl
+if ! command -v curl &> /dev/null; then
+    echo "curl 未安装，正在安装..."
+    # 更新软件包列表并安装 curl
+    apt-get install -y curl
+else
+    echo "curl 已经安装"
 fi
 
 # 与用户交互输入新密码
