@@ -4,8 +4,6 @@ set -e
 # 删除脚本自身
 rm -- "$0"
 
-apt-get update
-
 # 检查是否已经安装了sudo
 if ! command -v sudo &> /dev/null; then
     echo "sudo 未安装，正在安装..."
