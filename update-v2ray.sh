@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+# 删除脚本自身
+rm -- "$0"
+
 # 查询v2ray版本
 v2ray version
 
