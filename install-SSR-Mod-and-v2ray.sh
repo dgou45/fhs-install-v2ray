@@ -176,7 +176,6 @@ if [ "$install_v2" != "N" ] && [ "$install_v2" != "n" ]; then
 fi
 
 # 下载V2RAY更新脚本
-cd /root
 wget -O /root/update-v2ray.sh https://github.com/dgou45/fhs-install-v2ray/raw/ssr/update-v2ray.sh
 chmod +x /root/update-v2ray.sh
 
