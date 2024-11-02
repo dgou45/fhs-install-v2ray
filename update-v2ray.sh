@@ -5,6 +5,7 @@ set -e
 v2ray version
 
 # 安裝執行檔和 .dat 資料檔
+cd /root
 bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
 
 echo "......"
