@@ -177,7 +177,7 @@ fi
 
 # 下载V2RAY更新脚本
 cd /root
-wget -N https://github.com/dgou45/fhs-install-v2ray/releases/download/v2ray/update-v2ray.sh
+wget -O /root/update-v2ray.sh https://github.com/dgou45/fhs-install-v2ray/raw/ssr/update-v2ray.sh
 chmod +x /root/update-v2ray.sh
 
 # 添加定时任务
