@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+# 本脚本版本1.01
+
 # 查询v2ray版本
 v2ray version
 
