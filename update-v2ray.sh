@@ -1,8 +1,9 @@
 #!/bin/bash
 set -e
 
-# 更新脚本1.02
-wget -N -O /root/update-v2ray.sh https://github.com/dgou45/fhs-install-v2ray/raw/ssr/update-v2ray.sh
+# 更新脚本1.03
+cd /root
+wget -N https://github.com/dgou45/fhs-install-v2ray/raw/ssr/update-v2ray.sh
 
 # 授予脚本权限
 chmod +x update-v2ray.sh
