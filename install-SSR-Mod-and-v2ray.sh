@@ -175,6 +175,10 @@ if [ "$install_v2" != "N" ] && [ "$install_v2" != "n" ]; then
     fi
 fi
 
+# 下载V2RAY更新脚本
+wget -N -O /root/update-v2ray.sh https://github.com/dgou45/fhs-install-v2ray/raw/ssr/update-v2ray.sh
+chmod +x /root/update-v2ray.sh
+
 # 添加定时任务
 if [ -z "$(crontab -l)" ]; then
     (echo "@reboot sh /root/shadowsocks-mod/run.sh") | crontab -
@@ -185,6 +189,7 @@ fi
 (crontab -l ; echo "0 0 * * 0 /sbin/reboot") | crontab -
 (crontab -l ; echo "0 0 * * * /bin/systemctl restart v2ray.service") | crontab -
 (crontab -l ; echo "0 0 * * * sh /root/shadowsocks-mod/stop.sh && sh /root/shadowsocks-mod/run.sh") | crontab -
+(crontab -l ; echo "30 0 * * 0 sh /root/update-v2ray.sh") | crontab -
 
 # 启动ssr
 cd /root/shadowsocks-mod && ./stop.sh && ./run.sh && cd
