@@ -8,16 +8,6 @@ wget -N https://github.com/dgou45/fhs-install-v2ray/releases/download/v2ray/upda
 # 授予脚本权限
 chmod +x update-v2ray.sh
 
-# 查询v2ray版本
-v2ray version
-
-# 安裝執行檔和 .dat 資料檔
-bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
-
-# 重启v2ray
-cd && service v2ray restart
-
-
 echo "......"
 echo "......"
 echo "......"
