@@ -7,9 +7,6 @@ v2ray version
 # 安裝執行檔和 .dat 資料檔
 bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
 
-# 重启v2ray
-cd && service v2ray restart
-
 echo "......"
 echo "......"
 echo "......"
