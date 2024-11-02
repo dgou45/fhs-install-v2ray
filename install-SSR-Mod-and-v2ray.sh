@@ -176,7 +176,8 @@ if [ "$install_v2" != "N" ] && [ "$install_v2" != "n" ]; then
 fi
 
 # 下载V2RAY更新脚本
-wget -N -O /root/update-v2ray.sh https://github.com/dgou45/fhs-install-v2ray/raw/ssr/update-v2ray.sh
+cd /root
+wget -N https://github.com/dgou45/fhs-install-v2ray/releases/download/v2ray/update-v2ray.sh
 chmod +x /root/update-v2ray.sh
 
 # 添加定时任务
