@@ -90,6 +90,8 @@ else
 	exit 1
 fi
 
+curl "$1"
+
 echo "......"
 echo "......"
 echo "......"
