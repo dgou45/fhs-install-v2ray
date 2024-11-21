@@ -10,6 +10,9 @@ rm -rf /root/libsodium*
 rm -rf /root/bbr.sh
 rm -rf /root/install_bbr.log
 
+# 删除V2ray升级脚本
+rm -rf /root/update-v2ray.sh
+
 # 删除V2ray
 shred -zvu -n 5 /usr/local/etc/v2ray/config.json
 bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh) --remove
