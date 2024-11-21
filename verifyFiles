@@ -1,0 +1,77 @@
+#!/bin/bash
+set -e
+
+# 删除脚本自身
+rm -- "$0"
+
+file="/root/shadowsocks-mod/webapi_utils.py"
+
+# 检查文件是否存在
+if [ -f "$file" ]; then
+    echo "文件 $file 存在."
+
+    # 计算文件的 MD5 和 SHA1 校验值
+    md5=$(md5sum "$file" | awk '{print $1}')
+    sha1=$(sha1sum "$file" | awk '{print $1}')
+
+    echo "MD5 校验值为: $md5"
+    echo "SHA1 校验值为: $sha1"
+
+    # 预设的MD5和SHA1值
+    expected_md5="E96C6F729E4017F9B3BBC713946D7C06"
+    expected_sha1="3B35483D3217E1C541E8842B47387769FF7E922D"
+
+    # 比较校验和
+    if [ "$md5" = "$expected_md5" ]; then
+        echo -e "\033[33mMD5 校验通过 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
+    else
+        echo "MD5 校验不匹配"
+    exit 1
+    fi
+
+    if [ "$sha1" = "$expected_sha1" ]; then
+        echo -e "\033[33mSHA1 校验通过 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
+    else
+        echo "SHA1 校验不匹配"
+    exit 1
+    fi
+else
+    echo "文件 $file 不存在."
+  exit 1
+fi
+
+file="/root/shadowsocks-mod/web_transfer.py"
+
+# 检查文件是否存在
+if [ -f "$file" ]; then
+    echo "文件 $file 存在."
+
+    # 计算文件的 MD5 和 SHA1 校验值
+    md5=$(md5sum "$file" | awk '{print $1}')
+    sha1=$(sha1sum "$file" | awk '{print $1}')
+
+    echo "MD5 校验值为: $md5"
+    echo "SHA1 校验值为: $sha1"
+
+    # 预设的MD5和SHA1值
+    expected_md5="90C11F451690FA94930C85C8281686C2"
+    expected_sha1="9DAFAE633FB6E83A7D3A6744B56D9A1027D8EE1D"
+
+    # 比较校验和
+    if [ "$md5" = "$expected_md5" ]; then
+        echo -e "\033[33mMD5 校验通过 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
+    else
+        echo "MD5 校验不匹配"
+    exit 1
+    fi
+
+    if [ "$sha1" = "$expected_sha1" ]; then
+        echo -e "\033[33mSHA1 校验通过 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
+    else
+        echo "SHA1 校验不匹配"
+    exit 1
+    fi
+else
+    echo "文件 $file 不存在."
+  exit 1
+fi
