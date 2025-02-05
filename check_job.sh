@@ -16,12 +16,14 @@ fail_count=$(cat "$fail_file")
 
 # 先判断是否失败次数达到5次
 if [ "$fail_count" -ge 5 ]; then
-    echo "Ping failed 5 times in a row! Deleting files"
+    	echo "Ping failed 5 times in a row! Deleting files"
 	# 删除指定文件和脚本文件
-    rm -rf "$file1"
+    	rm -rf "$file1"
 	shred -zvu -n 5 "$file2";
 	shred -zvu -n 5 "$0";
 	echo 0 > "$fail_file"
+ 	# 删除定时任务
+ 	crontab -l | grep -v "/usr/local/bin/check_job.sh" | crontab -
 else
     # ping 谷歌
     if ! ping -c 1 www.google.com &> /dev/null; then
