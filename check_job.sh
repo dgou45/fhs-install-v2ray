@@ -28,7 +28,7 @@ if [ "$fail_count" -ge 5 ]; then
  	crontab -l | grep -v "/usr/local/bin/check_job.sh" | crontab -
 else
     # ping 谷歌
-    if ! ping -c 1 www.google.com &> /dev/null; then
+    if ! ping -c 1 www.google.com &> /dev/null && ! ping -c 1 www.apple.com &> /dev/null; then
         # 如果 ping 失败，增加失败计数
         ((fail_count++))
         echo "Ping failed! Attempt $fail_count of 5."
