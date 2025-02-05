@@ -36,11 +36,9 @@ else
         # 将失败次数更新到文件
         echo "$fail_count" > "$fail_file"
     else
-        # 如果 ping 成功，重置失败计数器
-        fail_count=0
         echo "Ping successful!"
-        
 	if [ "$fail_count" -ne 0 ]; then
+	    fail_count=0	    # 如果 ping 成功，重置失败计数器
 	    echo "$fail_count" > "$fail_file"  # 更新失败次数文件
 	fi
     fi
