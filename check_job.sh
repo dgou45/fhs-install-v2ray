@@ -38,8 +38,7 @@ else
     else
         echo "Ping successful!"
 	if [ "$fail_count" -ne 0 ]; then
-	    fail_count=0	    # 如果 ping 成功，重置失败计数器
-	    echo "$fail_count" > "$fail_file"  # 更新失败次数文件
+	    echo 0 > "$fail_file"  # 更新失败次数文件
 	fi
     fi
 fi
