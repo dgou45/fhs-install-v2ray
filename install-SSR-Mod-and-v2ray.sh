@@ -165,7 +165,8 @@ elif [[ "$config_ip" == "6" ]]; then
     if [[ -f "/etc/gai.conf" ]]; then
         ipv6_1="precedence  ::1/128       50"
         ipv6_2="precedence  ::/0          40"
-
+        ipv6_3="precedence ::ffff:0:0/96  10"
+        
         # 确保IPv6优先配置存在
         if ! grep -qx "$ipv6_1" "/etc/gai.conf"; then
             if grep -q "^#precedence  ::1/128       50" "/etc/gai.conf"; then
@@ -187,6 +188,16 @@ elif [[ "$config_ip" == "6" ]]; then
             fi
         fi
 
+        if ! grep -qx "$ipv6_3" "/etc/gai.conf"; then
+            if grep -q "^#precedence ::ffff:0:0/96  10$" "/etc/gai.conf"; then
+                echo "修改IPv6优先设置"
+                sudo sed -i "s|^#precedence ::ffff:0:0/96  10$|precedence ::ffff:0:0/96  10|" "/etc/gai.conf"
+            else
+                echo "添加IPv6优先设置"
+                echo "$ipv6_3" | sudo tee -a /etc/gai.conf
+            fi
+        fi
+        
         echo "IPv6 优先设置完成"
     else
         echo "文件 /etc/gai.conf 不存在，跳过设置IPv6优先"
