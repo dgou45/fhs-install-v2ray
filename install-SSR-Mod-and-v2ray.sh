@@ -72,6 +72,17 @@ else
     echo "安装v2ray..."
 fi
 
+# 询问是否设置IPv4/6优先
+read -p "是否设置IPv4/6优先？（按下回车跳过设置）[4/6] " config_ip
+
+if [[ "$config_ip" == "4" ]]; then
+    echo "设置IPv4优先..."
+elif [[ "$config_ip" == "6" ]]; then
+    echo "设置IPv6优先..."
+else
+    echo "不做任何IP优先设置..."
+fi
+
 # 检查防火墙状态
 if sudo ufw status | grep "Status: active"; then
     echo "防火墙已开启，将关闭防火墙..."
@@ -130,6 +141,56 @@ else
     sysctl -p
     sysctl net.ipv4.tcp_available_congestion_control
     lsmod | grep bbr
+fi
+
+# 设置IPv4/6优先
+if [[ "$config_ip" == "4" ]]; then
+    if [[ -f "/etc/gai.conf" ]]; then
+        if ! grep -qx "precedence ::ffff:0:0/96  100" "/etc/gai.conf"; then
+            if grep -q "^#precedence ::ffff:0:0/96  100" "/etc/gai.conf"; then
+                echo "修改IPv4优先设置"
+                sudo sed -i "s|^#precedence ::ffff:0:0/96  100|precedence ::ffff:0:0/96  100|" "/etc/gai.conf"
+            else
+                echo "添加IPv4优先设置"
+                echo "precedence ::ffff:0:0/96  100" | sudo tee -a /etc/gai.conf
+            fi
+        else
+            echo "IPv4优先已经存在，无需设置"
+        fi
+    else
+        echo "文件 /etc/gai.conf 不存在，跳过设置IPv4优先"
+    fi
+
+elif [[ "$config_ip" == "6" ]]; then
+    if [[ -f "/etc/gai.conf" ]]; then
+        ipv6_1="precedence  ::1/128       50"
+        ipv6_2="precedence  ::/0          40"
+
+        # 确保IPv6优先配置存在
+        if ! grep -qx "$ipv6_1" "/etc/gai.conf"; then
+            if grep -q "^#precedence  ::1/128       50" "/etc/gai.conf"; then
+                echo "修改IPv6优先设置"
+                sudo sed -i "s|^#precedence  ::1/128       50|precedence  ::1/128       50|" "/etc/gai.conf"
+            else
+                echo "添加IPv6优先设置"
+                echo "$ipv6_1" | sudo tee -a /etc/gai.conf
+            fi
+        fi
+
+        if ! grep -qx "$ipv6_2" "/etc/gai.conf"; then
+            if grep -q "^#precedence  ::/0          40" "/etc/gai.conf"; then
+                echo "修改IPv6优先设置"
+                sudo sed -i "s|^#precedence  ::/0          40|precedence  ::/0          40|" "/etc/gai.conf"
+            else
+                echo "添加IPv6优先设置"
+                echo "$ipv6_2" | sudo tee -a /etc/gai.conf
+            fi
+        fi
+
+        echo "IPv6 优先设置完成"
+    else
+        echo "文件 /etc/gai.conf 不存在，跳过设置IPv6优先"
+    fi
 fi
 
 # 修改userapiconfig.py 
