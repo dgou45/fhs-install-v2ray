@@ -255,7 +255,7 @@ fi
 
 # 获取 IPv6 地址
 IPv6=$(curl -6 -s ip.sb)
-echo "✅ 你的公网 IPv6 地址是: $IPv6"
+echo "你的公网 IPv6 地址是: $IPv6"
 
 echo "......"
 echo "......"
