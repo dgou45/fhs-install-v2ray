@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 # 删除脚本自身
 rm -- "$0"
@@ -83,14 +82,15 @@ sudo chmod 600 "$NETPLAN_CONFIG"
 sudo netplan apply
 echo "Netplan 配置已应用"
 
-# 获取 IPv6 地址
-IPv6=$(curl -6 -s ip.sb)
-echo "你的公网 IPv6 地址是: $IPv6"
+# 查看IPv6
+IPv6=$(ip -6 addr show scope global | grep -v temporary | grep -oP '(?<=inet6\s)[0-9a-f:]+')
+echo "您的公网IPv6地址是: $IPv6"
 
 echo "......"
 echo "......"
 echo "......"
 echo -e "\033[32m恭喜您，\033[33m所有命令执行成功！\033[0m"
+
 
 
 
