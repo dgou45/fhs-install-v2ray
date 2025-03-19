@@ -253,9 +253,9 @@ if [ "$install_v2" != "N" ] && [ "$install_v2" != "n" ]; then
     service v2ray restart
 fi
 
-# 获取 IPv6 地址
-IPv6=$(curl -6 -s ip.sb)
-echo "你的公网 IPv6 地址是: $IPv6"
+# 查看IPv6
+IPv6=$(ip -6 addr show scope global | grep -v temporary | grep -oP '(?<=inet6\s)[0-9a-f:]+')
+echo "您的公网IPv6地址是: $IPv6"
 
 echo "......"
 echo "......"
