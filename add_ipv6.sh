@@ -78,3 +78,22 @@ sudo chmod 600 "$NETPLAN_CONFIG"
 # 应用 Netplan 配置
 sudo netplan apply
 echo "Netplan 配置已应用"
+
+# 获取 IPv6 地址
+IPv6=$(curl -6 -s ip.sb)
+
+# 检查 IPv6 是否成功获取
+if [[ -z "$IPv6" ]]; then
+    echo "❌ 无法获取 IPv6 地址，请检查网络"
+    exit 1
+fi
+
+echo "✅ 你的公网 IPv6 地址是: $IPv6"
+
+echo "......"
+echo "......"
+echo "......"
+echo -e "\033[32m恭喜您，\033[33m所有命令执行成功！\033[0m"
+
+
+
