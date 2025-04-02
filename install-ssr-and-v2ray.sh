@@ -1,0 +1,267 @@
+#!/bin/bash
+set -e
+
+# 删除脚本自身
+rm -- "$0"
+
+# 检查是否已经安装了sudo
+if ! command -v sudo &> /dev/null; then
+    echo "sudo 未安装，正在安装..."
+    # 安装sudo
+    apt-get install -y sudo
+else
+    echo "sudo 已经安装"
+fi
+
+# 检查是否已经安装了 curl
+if ! command -v curl &> /dev/null; then
+    echo "curl 未安装，正在安装..."
+    # 更新软件包列表并安装 curl
+    apt-get install -y curl
+else
+    echo "curl 已经安装"
+fi
+
+# 与用户交互输入新密码
+read -s -p "请输入新的 root 密码，回车跳过：" new_password
+echo
+
+# 检查用户是否取消输入
+if [[ -z "$new_password" ]]; then
+    echo "没有输入，取消修改密码。"
+else
+    # 使用输入的密码修改 root 密码
+    echo -e "$new_password\n$new_password" | sudo passwd root
+
+    # 检查修改密码的结果
+    if [[ $? -eq 0 ]]; then
+        echo "root 密码已成功修改。"
+    else
+        echo "修改 root 密码失败。"
+        exit 1
+    fi
+fi
+
+# 获取节点ID
+valid_input=false
+while [ "$valid_input" = false ]; do
+    echo "请输入节点ID（默认为 0 ），回车跳过："
+    read node_id
+
+  if [ -z "$node_id" ]; then
+    node_id=0
+    echo "没有输入，节点ID默认为 0"
+  else
+    echo "您输入的节点ID是：$node_id"
+  fi
+
+  # 判断用户输入是否为数字
+  if [[ "$node_id" =~ ^[0-9]+$ ]]; then
+    valid_input=true
+  else 
+    echo "输入无效，请重新输入一个有效的数字，或按下确认键（默认为 0）！"
+  fi
+done
+
+# 询问是否安装v2ray
+read -p "是否安装v2ray？（按下确定默认安装）[Y/n] " install_v2
+
+if [[ "$install_v2" == "N" || "$install_v2" == "n" ]]; then
+    echo "不安装v2ray..."
+else
+    echo "安装v2ray..."
+fi
+
+# 询问是否设置IPv4/6优先
+read -p "是否设置IPv4/6优先？（按下回车跳过设置）[4/6] " config_ip
+
+if [[ "$config_ip" == "4" ]]; then
+    echo "设置IPv4优先..."
+elif [[ "$config_ip" == "6" ]]; then
+    echo "设置IPv6优先..."
+else
+    echo "不做任何IP优先设置..."
+fi
+
+# 检查防火墙状态
+if sudo ufw status | grep "Status: active"; then
+    echo "防火墙已开启，将关闭防火墙..."
+    sudo ufw disable
+    echo "防火墙已关闭。"
+else
+    echo "防火墙未开启。"
+fi
+
+# 安装工具
+apt update
+apt install -y python3-pip libffi-dev libssl-dev git
+
+# 安装加密
+apt install -y build-essential
+wget https://github.com/jedisct1/libsodium/releases/download/1.0.18-RELEASE/libsodium-1.0.18.tar.gz
+tar xf libsodium-1.0.18.tar.gz && cd libsodium-1.0.18
+./configure && make -j2 && make install
+ldconfig
+cd
+
+# 安装 SSR
+git clone https://github.com/vonaxs/shadowsocks-mod.git
+cd shadowsocks-mod/
+pip3 install -r requirements.txt
+cp apiconfig.py userapiconfig.py
+cp config.json user-config.json
+cd
+
+# 是否安装v2ray
+if [ "$install_v2" != "N" ] && [ "$install_v2" != "n" ]; then
+    cd
+    # 检查是否已安装 curl
+    if ! command -v curl &> /dev/null; then
+        echo "未找到 curl，开始安装..."
+        sudo apt-get install curl -y
+        echo "curl 安装完成。"
+    else
+        echo "curl 已安装，无需重复安装。"
+    fi
+
+    # 安装v2ray
+    bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
+    bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-dat-release.sh)
+    # 下载v2ray配置文件
+    wget -O /usr/local/etc/v2ray/config.json https://github.com/dgou45/fhs-install-v2ray/raw/ssr/config-v2ray.json
+fi
+
+# 开启 BBR
+if sysctl net.ipv4.tcp_available_congestion_control | grep -q 'bbr'; then
+    echo "BBR 已启用，无需重复开启"
+else
+    echo "BBR 未启用，正在开启 BBR"
+    echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
+    echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
+    sysctl -p
+    sysctl net.ipv4.tcp_available_congestion_control
+    lsmod | grep bbr
+fi
+
+# 设置IPv4/6优先
+if [[ "$config_ip" == "4" ]]; then
+    if [[ -f "/etc/gai.conf" ]]; then
+        if ! grep -qx "precedence ::ffff:0:0/96  100" "/etc/gai.conf"; then
+            if grep -q "^#precedence ::ffff:0:0/96  100" "/etc/gai.conf"; then
+                echo "修改IPv4优先设置"
+                sudo sed -i "s|^#precedence ::ffff:0:0/96  100|precedence ::ffff:0:0/96  100|" "/etc/gai.conf"
+            else
+                echo "添加IPv4优先设置"
+                echo "precedence ::ffff:0:0/96  100" | sudo tee -a /etc/gai.conf
+            fi
+        else
+            echo "IPv4优先已经存在，无需设置"
+        fi
+    else
+        echo "文件 /etc/gai.conf 不存在，跳过设置IPv4优先"
+    fi
+
+elif [[ "$config_ip" == "6" ]]; then
+    if [[ -f "/etc/gai.conf" ]]; then
+        ipv6_1="precedence  ::1/128       50"
+        ipv6_2="precedence  ::/0          40"
+        ipv6_3="precedence ::ffff:0:0/96  10"
+        
+        # 确保IPv6优先配置存在
+        if ! grep -qx "$ipv6_1" "/etc/gai.conf"; then
+            if grep -q "^#precedence  ::1/128       50" "/etc/gai.conf"; then
+                echo "修改IPv6优先设置"
+                sudo sed -i "s|^#precedence  ::1/128       50|precedence  ::1/128       50|" "/etc/gai.conf"
+            else
+                echo "添加IPv6优先设置"
+                echo "$ipv6_1" | sudo tee -a /etc/gai.conf
+            fi
+        fi
+
+        if ! grep -qx "$ipv6_2" "/etc/gai.conf"; then
+            if grep -q "^#precedence  ::/0          40" "/etc/gai.conf"; then
+                echo "修改IPv6优先设置"
+                sudo sed -i "s|^#precedence  ::/0          40|precedence  ::/0          40|" "/etc/gai.conf"
+            else
+                echo "添加IPv6优先设置"
+                echo "$ipv6_2" | sudo tee -a /etc/gai.conf
+            fi
+        fi
+
+        if ! grep -qx "$ipv6_3" "/etc/gai.conf"; then
+            if grep -q "^#precedence ::ffff:0:0/96  10$" "/etc/gai.conf"; then
+                echo "修改IPv6优先设置"
+                sudo sed -i "s|^#precedence ::ffff:0:0/96  10$|precedence ::ffff:0:0/96  10|" "/etc/gai.conf"
+            else
+                echo "添加IPv6优先设置"
+                echo "$ipv6_3" | sudo tee -a /etc/gai.conf
+            fi
+        fi
+        
+        echo "IPv6 优先设置完成"
+    else
+        echo "文件 /etc/gai.conf 不存在，跳过设置IPv6优先"
+    fi
+fi
+
+# 修改userapiconfig.py 
+sudo sed -i "s|NODE_ID = 0|NODE_ID = $node_id|" /root/shadowsocks-mod/userapiconfig.py
+sudo sed -i "s|MU_SUFFIX = 'zhaoj.in'|MU_SUFFIX = 'microsoft.com,www.icloud.com,www.apple.com,www.office.com,www.jd.hk,www.bing.com,cloudfront.com,cloudflare.com,ajax.microsoft.com'|" /root/shadowsocks-mod/userapiconfig.py 
+
+if [ -n "$1" ]; then
+    sudo sed -i "s|WEBAPI_URL = 'https://demo.sspanel.host'|WEBAPI_URL = $1|" /root/shadowsocks-mod/userapiconfig.py
+else
+    echo -e "\033[31m没有获取到修改userapiconfig.py的参数1，请手动修改！\033[0m"
+fi
+
+if [ -n "$2" ]; then
+    sudo sed -i "s|WEBAPI_TOKEN = 'sspanel'|WEBAPI_TOKEN = $2|" /root/shadowsocks-mod/userapiconfig.py
+else
+    echo -e "\033[31m没有获取到修改userapiconfig.py的参数2，请手动修改！\033[0m"
+fi
+
+# 修改v2ray config
+if [ "$install_v2" != "N" ] && [ "$install_v2" != "n" ]; then
+    if [ -n "$3" ]; then
+    	sudo sed -i "s|uuid-123456789|$3|" /usr/local/etc/v2ray/config.json
+    else
+    	echo -e "\033[31m没有获取到修改v2ray config的参数3，请手动修改！\033[0m"
+    fi
+fi
+
+# 下载V2RAY更新脚本
+wget -O /root/update-v2ray.sh https://github.com/dgou45/fhs-install-v2ray/raw/ssr/update-v2ray.sh
+chmod +x /root/update-v2ray.sh
+
+# 添加定时任务
+if [ -z "$(crontab -l)" ]; then
+    (echo "@reboot sh /root/shadowsocks-mod/run.sh") | crontab -
+else
+    (crontab -l ; echo "@reboot sh /root/shadowsocks-mod/run.sh") | crontab -
+fi
+(crontab -l ; echo "@reboot /bin/systemctl restart v2ray.service") | crontab -
+(crontab -l ; echo "0 0 * * 0 /sbin/reboot") | crontab -
+(crontab -l ; echo "0 0 * * * /bin/systemctl restart v2ray.service") | crontab -
+(crontab -l ; echo "0 0 * * * sh /root/shadowsocks-mod/stop.sh && sh /root/shadowsocks-mod/run.sh") | crontab -
+(crontab -l ; echo "30 0 * * 0 sh /root/update-v2ray.sh") | crontab -
+
+# 启动ssr
+cd /root/shadowsocks-mod && ./stop.sh && ./run.sh && cd
+
+# 启动v2ray
+if [ "$install_v2" != "N" ] && [ "$install_v2" != "n" ]; then
+    service v2ray restart
+fi
+
+# 查看IPv6
+IPv6=$(ip -6 addr show scope global | grep -v temporary | grep -oP '(?<=inet6\s)[0-9a-f:]+')
+echo "您的公网IPv6地址是: $IPv6"
+
+echo "......"
+echo "......"
+echo "......"
+echo -e "\033[32m恭喜您，\033[33m所有命令执行成功！\033[0m"
+
+
+
+
