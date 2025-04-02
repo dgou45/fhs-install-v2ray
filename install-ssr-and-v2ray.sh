@@ -209,13 +209,13 @@ sudo sed -i "s|NODE_ID = 0|NODE_ID = $node_id|" /root/shadowsocks-mod/userapicon
 sudo sed -i "s|MU_SUFFIX = 'zhaoj.in'|MU_SUFFIX = 'microsoft.com,www.icloud.com,www.apple.com,www.office.com,www.jd.hk,www.bing.com,cloudfront.com,cloudflare.com,ajax.microsoft.com'|" /root/shadowsocks-mod/userapiconfig.py 
 
 if [ -n "$1" ]; then
-    sudo sed -i "s|WEBAPI_URL = 'https://demo.sspanel.host'|WEBAPI_URL = $1|" /root/shadowsocks-mod/userapiconfig.py
+    sudo sed -i "/WEBAPI_URL =/c\WEBAPI_URL = $1" /root/shadowsocks-mod/userapiconfig.py
 else
     echo -e "\033[31m没有获取到修改userapiconfig.py的参数1，请手动修改！\033[0m"
 fi
 
 if [ -n "$2" ]; then
-    sudo sed -i "s|WEBAPI_TOKEN = 'sspanel'|WEBAPI_TOKEN = $2|" /root/shadowsocks-mod/userapiconfig.py
+    sudo sed -i "/WEBAPI_TOKEN =/c\WEBAPI_TOKEN = $2" /root/shadowsocks-mod/userapiconfig.py
 else
     echo -e "\033[31m没有获取到修改userapiconfig.py的参数2，请手动修改！\033[0m"
 fi
