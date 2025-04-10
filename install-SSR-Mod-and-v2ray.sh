@@ -254,7 +254,10 @@ if [ "$install_v2" != "N" ] && [ "$install_v2" != "n" ]; then
 fi
 
 # 查看IPv6
-IPv6=$(ip -6 addr show scope global | grep -v temporary | grep -oP '(?<=inet6\s)[0-9a-f:]+')
+IPv6=$(ip -6 addr show scope global 2>/dev/null | awk '/inet6/ {print $2}' | cut -d'/' -f1 | head -n1)
+if [ -z "$IPv6" ]; then
+    IPv6="无IPv6地址"
+fi
 echo "您的公网IPv6地址是: $IPv6"
 
 echo "......"
