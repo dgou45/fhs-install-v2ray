@@ -144,6 +144,7 @@ else
 fi
 
 
+# 设置IPv4/6优先
 if [[ "$config_ip" == "4" || "$config_ip" == "6" ]]; then
 	if [[ ! -f "/etc/gai.conf" ]]; then
 		echo "文件 /etc/gai.conf 不存在，退出设置"
