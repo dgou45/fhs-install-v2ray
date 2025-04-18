@@ -210,6 +210,7 @@ if [[ "$config_ip" == "4" || "$config_ip" == "6" ]]; then
 	fi
 fi
 
+
 # 修改userapiconfig.py 
 sudo sed -i "s|NODE_ID = 0|NODE_ID = $node_id|" /root/shadowsocks-mod/userapiconfig.py
 sudo sed -i "s|MU_SUFFIX = 'zhaoj.in'|MU_SUFFIX = 'microsoft.com,www.icloud.com,www.apple.com,www.office.com,www.jd.hk,www.bing.com,cloudfront.com,cloudflare.com,ajax.microsoft.com'|" /root/shadowsocks-mod/userapiconfig.py 
